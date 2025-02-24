@@ -1,47 +1,12 @@
-import { useEffect, useRef, useState } from "react";
 import PokemonCard from "./PokemonCard";
 import NEXT from "../assets/next.svg";
 import PREVIOUS from "../assets/previous.svg";
 import NotFound from "./NotFound";
+import usePokemonInfo from "../Utils/usePokemonInfo";
+import { Link } from "react-router";
 
 const PokemonsCont = () => {
-    const [pokemonInfo, setPokemonInfo] = useState(null);
-    const [pageNumber, setPageNumber] = useState(1);
-
-    const limit = 10;
-    const totalPages = useRef(null);
-    const searchRef = useRef("");
-
-    const fetchSpecificInfo = (data) => {
-        return data.map(async (el) => {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${el.name}`);
-            const data = await response.json();
-
-            return data;
-        });
-    };
-
-    const fetchPokemonInfo = async () => {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${(pageNumber - 1) * limit}`);
-        const data = await response.json();
-        
-        const mainInfo = fetchSpecificInfo(data.results);
-        totalPages.current = Math.ceil(data.count / limit);
-
-        Promise.all(mainInfo).then((info) => setPokemonInfo(info));
-    };
-
-    const handleNextPage = () => {
-        if((pageNumber + 1) <= totalPages.current) setPageNumber(pageNumber + 1);
-    };
-    
-    const handlePrevPage = () => {
-        if((pageNumber - 1) > 0) setPageNumber(pageNumber - 1);
-    };
-
-    useEffect(() => {
-        fetchPokemonInfo();
-    }, [pageNumber]);
+    const {pokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo} = usePokemonInfo();
 
     return (
         <div className="mt-[2.5rem]">
@@ -52,13 +17,12 @@ const PokemonsCont = () => {
 
                         const searchVal = searchRef.current.value;
 
-                        if(searchVal) {
-                            setPageNumber(1);
-                            totalPages.current = 1;
-                            
+                        console.log(searchVal);
+
+                        if(searchVal) {                            
                             Promise.all(fetchSpecificInfo([{name: searchVal}]))
-                            .then(setPokemonInfo)
-                            .catch(() => setPokemonInfo(["error"]));
+                            .then((data) => setSearchData(data))
+                            .catch(() => setSearchData(["error"]));
                         }
                         else fetchPokemonInfo();
                     }}>
@@ -79,7 +43,9 @@ const PokemonsCont = () => {
                                 pokemonInfo.map((el) => {
                                     if(el === "error") return <NotFound key={"err"} />;
                                     return (
-                                        <PokemonCard key={el.id} data={el} />
+                                        <Link key={el.id} to={`/pokeInfo/${el.id}`}>
+                                            <PokemonCard data={el} />
+                                        </Link>
                                     );
                                 })
                             }
@@ -89,7 +55,7 @@ const PokemonsCont = () => {
                             <button className="font-semibold shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] p-[5px] rounded-[5px]" onClick={handlePrevPage}>
                                 <img className="cursor-pointer w-[30px]" src={PREVIOUS} alt="prev-page" />
                             </button>
-                            <span className="rounded-[5px] px-[1rem] py-[10px] text-2xl shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)]">{`${pageNumber} of ${totalPages.current}`}</span>
+                            <span className="rounded-[5px] px-[1rem] py-[10px] text-2xl shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)]">{`${pageNumber.current} of ${totalPages}`}</span>
                             <button className="font-semibold shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] p-[5px] rounded-[5px]" onClick={handleNextPage}>
                                 <img className="cursor-pointer w-[30px]" src={NEXT} alt="next-page" />
                             </button>
