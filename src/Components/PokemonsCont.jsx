@@ -2,7 +2,7 @@ import PokemonCard from "./PokemonCard";
 import NEXT from "../assets/next.svg";
 import PREVIOUS from "../assets/previous.svg";
 import NotFound from "./NotFound";
-import usePokemonInfo from "../Utils/usePokemonInfo";
+import usePokemonInfo from "../Utils/hooks/usePokemonInfo";
 import { Link } from "react-router";
 
 const PokemonsCont = () => {
@@ -16,8 +16,6 @@ const PokemonsCont = () => {
                         e.preventDefault();
 
                         const searchVal = searchRef.current.value;
-
-                        console.log(searchVal);
 
                         if(searchVal) {                            
                             Promise.all(fetchSpecificInfo([{name: searchVal}]))

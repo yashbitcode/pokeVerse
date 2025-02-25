@@ -6,12 +6,13 @@ import { Outlet } from "react-router";
 
 const AppLayout = () => {
 	return (
-		<div className="font-[Poppins] px-[1rem]">
+		<div className="font-[Poppins] px-[1rem] pt-[1rem] pb-[3rem]">
 			<Header /> 
 			<Outlet />
 		</div>
 	);
 };
+
 
 const appRoutes = createBrowserRouter([
 	{

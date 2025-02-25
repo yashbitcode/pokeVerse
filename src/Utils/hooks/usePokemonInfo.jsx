@@ -23,7 +23,7 @@ const usePokemonInfo = () => {
         const mainInfo = fetchSpecificInfo(data.results);
         setTotalPages(Math.ceil(data.count / limit));
 
-        Promise.all(mainInfo).then((info) => setPokemonInfo(info));
+        Promise.all(mainInfo).then(setPokemonInfo);
     };
 
     const handleNextPage = () => {
