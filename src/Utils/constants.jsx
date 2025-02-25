@@ -32,3 +32,20 @@ export const statConstants = [
         color: "bg-[#FFF176]" 
     }
 ];
+
+export const fetchPokemonSpecies = async (pokeId) => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokeId}`);
+    return response.json();
+};
+
+export const fetchPokemonInfo = async (pokeId) => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`);
+    return response.json();
+};
+
+export const getAllEvolutions = (evolutionArr, obj) => {
+    evolutionArr.push(obj.species.name);
+
+    if(!obj.evolves_to.length) return;
+    getAllEvolutions(evolutionArr, obj.evolves_to[0]);
+};
