@@ -36,7 +36,7 @@ const PokemonsCont = () => {
             {
                 pokemonInfo && (
                     <>
-                        <div className="w-full grid grid-cols-4 max-w-[1250px] mx-auto mt-[2rem] gap-[20px]">
+                        <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] max-w-[1250px] mx-auto mt-[2rem] gap-[20px]">
                             {
                                 pokemonInfo.map((el) => {
                                     if(el === "error") return <NotFound key={"err"} />;

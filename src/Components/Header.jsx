@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 
 const Header = () => {
     return (
-        <div className="flex bg-red-500 py-[5px] px-[1.6rem] gap-[1.5rem] items-center justify-between rounded-[20px]">
+        <div className="flex bg-red-500 py-[5px] px-[1.6rem] gap-[1.5rem] items-center justify-between rounded-[10px]">
             <div className="w-[85px]">
                 <img src={logo} alt="pokeVerse" />
             </div>
