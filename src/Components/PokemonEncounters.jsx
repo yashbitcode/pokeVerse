@@ -4,6 +4,8 @@ import usePokemonEncounters from "../Utils/hooks/usePokemonEncounters";
 const PokemonEncounters = ({pokeId, name}) => {
     const pokeEncounters = usePokemonEncounters(pokeId);
 
+    if(!pokeEncounters) return;
+
     return (
         <div className="mt-[2.5rem]">
             <h1 className="text-2xl">{`${getFormattedName(name)} All Encounters`}</h1>
