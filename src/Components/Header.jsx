@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import logo from "../assets/logo.png";
 
 const Header = () => {
@@ -8,11 +9,12 @@ const Header = () => {
             </div>
 
             <div className="w-full max-w-[500px]">
-                <ul className="flex w-full justify-between text-white">
-                    <li className="text-[1.4rem] font-[400]">Pokemons</li>
-                    <li className="text-[1.4rem] font-[400]">Simulator</li>
-                    <li className="text-[1.4rem] font-[400]">Quiz</li>
-                    <li className="text-[1.4rem] font-[400]">PokeGPT</li>
+                <ul className="flex w-full justify-end gap-[20px] text-white">
+                    <li className="text-[1.4rem] font-[400]">
+                        <Link to={"/"}>
+                            Pokemons
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </div>

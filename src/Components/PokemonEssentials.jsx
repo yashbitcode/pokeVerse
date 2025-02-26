@@ -2,7 +2,7 @@ import { getFormattedName } from "../Utils/constants";
 
 const PokemonEssentials = ({pokeInfo}) => {
     return (
-        <div className="mt-[20px] flex items-center gap-[25px] flex-wrap">
+        <div className="mt-[20px] flex items-center gap-x-[25px] gap-y-[15px] flex-wrap">
             <div className="flex items-center gap-[10px]">
                 <h1 className="text-[1.15rem]">Type: </h1>
                 <div className="flex gap-[10px]">

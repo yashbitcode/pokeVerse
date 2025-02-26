@@ -3,7 +3,13 @@ export const getFormattedDesc = (desc) => {
 };
 
 export const getFormattedName = (name) => {
-    return name[0].toUpperCase() + name.substr(1);
+    let formattedName = "";
+
+    name.split("-").forEach((el) => {
+        formattedName += el[0].toUpperCase() + el.substr(1) + " ";
+    });
+
+    return formattedName;
 };
 
 export const statConstants = [
