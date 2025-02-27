@@ -5,25 +5,30 @@ import { addPokeGPTResult } from "../Utils/services/pokemon";
 import { fetchPokemonSpecies } from "../Utils/helpers";
 import NotFound from "../Components/NotFound";
 import PokemonCard from "../Components/PokemonCard";
-import { Link } from "react-router";
+import { data, Link } from "react-router";
 
 const PokeGPT = () => {
     const searchRef = useRef(null);
     const dispatch = useDispatch();
-    const [suggestions, setSuggestions] = useState(null);
     
     const pokeAISuggestions = useSelector((store) => store.pokemon.pokeGPTResult);
+    const [suggestions, setSuggestions] = useState(null);
+    const [searchInp, setSearchInp] = useState(pokeAISuggestions?.searchQuery || "");
 
     const fetchAISuggestions = async (query) => {
         const userQuery = `give me the list of atmax 5 pokemons based on the user query which can be found on "pokeapi.co" and give different result everytime: "${query}" just focus on the context and give me atmax 5 pokemons only and if you unable to understand or process the user query give the empty array as output`;
 
         const response = await runQuery(userQuery);
 
-        dispatch(addPokeGPTResult(response));
+        dispatch(addPokeGPTResult({
+            searchQuery: query,
+            data: response
+        }));
     };
 
     const fetchResults = async () => {
-        const dataArr = pokeAISuggestions.map((el) => fetchPokemonSpecies(el));
+        console.log(pokeAISuggestions);
+        const dataArr = pokeAISuggestions.data.map((el) => fetchPokemonSpecies(el));
         if(dataArr.length) {
             const result = await Promise.all(dataArr);
 
@@ -47,7 +52,7 @@ const PokeGPT = () => {
                             fetchAISuggestions(searchRef.current.value);
                         }}>
 
-                        <input className="text-3xl pb-[4px] outline-0 border-b-2 w-full" type="text" ref={searchRef} placeholder="Eg: Best Powerfull Pokemons" />
+                        <input value={searchInp} className="text-3xl pb-[4px] outline-0 border-b-2 w-full" type="text" ref={searchRef} placeholder="Eg: Best Powerfull Pokemons" onChange={(e) => setSearchInp(e.target.value)} />
 
                         <button className="outline-0">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg" alt="search" className="w-9" />

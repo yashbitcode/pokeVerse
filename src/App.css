@@ -1,5 +1,18 @@
 @import "tailwindcss";
 @theme {
     --breakpoint-xs: 1000px;
-    --breakpoint-xss: 400px;
+    --breakpoint-xss: 400px;      
+}
+
+.shimmer-animate {
+    animation: shim-animate 1s linear infinite alternate;
+}
+
+@keyframes shim-animate {
+    from {
+        background-color: rgb(215, 221, 230);
+    }
+    to {
+        background-color: rgb(170, 169, 169);
+    }
 }

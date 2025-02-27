@@ -4,9 +4,12 @@ import PREVIOUS from "../assets/previous.svg";
 import NotFound from "./NotFound";
 import usePokemonInfo from "../Utils/hooks/usePokemonInfo";
 import { Link } from "react-router";
+import { BaseShimmer } from "./Shimmer";
 
 const PokemonsCont = () => {
-    const {pokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo} = usePokemonInfo();
+    const {pokemonInfo, setPokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo} = usePokemonInfo();
+
+    // if(pokemonInfo) return <BaseShimmer limit={10} />
 
     return (
         <div className="mt-[2.5rem]">
@@ -21,7 +24,7 @@ const PokemonsCont = () => {
                             if(el && !searchVal) searchVal += el;
                             else if(el) searchVal += `-${el}`;
                         }); 
-
+                        
                         if(searchVal) {                            
                             Promise.all(fetchSpecificInfo([{name: searchVal}]))
                             .then((data) => setSearchData(data))
@@ -39,7 +42,7 @@ const PokemonsCont = () => {
             </div>
 
             {
-                pokemonInfo && (
+                pokemonInfo ? (
                     <>
                         <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,280px))] justify-center max-w-[1270px] mx-auto mt-[2rem] gap-[20px]">
                             {
@@ -64,7 +67,7 @@ const PokemonsCont = () => {
                             </button>
                         </div>
                     </>
-                )
+                ) : <BaseShimmer limit={10} />
             }
         </div>
     );

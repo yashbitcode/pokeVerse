@@ -48,7 +48,7 @@ const usePokemonInfo = () => {
         fetchPokemonInfo();
     }, []);
 
-    return {pokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo};
+    return {pokemonInfo, setPokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo};
 }
 
 export default usePokemonInfo;

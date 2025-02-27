@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
 import PokemonCard from "./PokemonCard";
+import { BaseShimmer } from "./Shimmer";
 
 const EvolutionChainCont = () => {
     const evolutionChain = useSelector((store) => store.pokemon.evolutionChain);
 
-    if(!evolutionChain) return;
+    if(!evolutionChain) return <BaseShimmer limit={3} />;
     
     return (
         <div className="mt-[2.5rem]">
