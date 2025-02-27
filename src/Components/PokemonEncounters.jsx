@@ -4,7 +4,7 @@ import usePokemonEncounters from "../Utils/hooks/usePokemonEncounters";
 const PokemonEncounters = ({pokeId, name}) => {
     const pokeEncounters = usePokemonEncounters(pokeId);
 
-    if(!pokeEncounters) return;
+    if(!pokeEncounters?.length) return;
 
     return (
         <div className="mt-[2.5rem]">

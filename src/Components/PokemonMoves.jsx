@@ -1,7 +1,10 @@
+import { useSelector } from "react-redux";
 import { getFormattedName } from "../Utils/constants";
 
-const PokemonMoves = ({pokeInfo}) => {
-    if(!pokeInfo) return;
+const PokemonMoves = () => {
+    const pokeInfo = useSelector((store) => store.pokemon.pokeInfo);
+    
+    if(!pokeInfo?.moves?.length) return;
 
     return (
         <div className="mt-[2.5rem]">

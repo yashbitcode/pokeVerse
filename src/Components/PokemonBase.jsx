@@ -1,8 +1,12 @@
+import { useSelector } from "react-redux";
 import { getFormattedDesc, getFormattedName } from "../Utils/constants";
 import PokemonEssentials from "./PokemonEssentials";
 import StatsCont from "./StatsCont";
 
-const PokemonBase = ({pokeSpeciesInfo, pokeInfo}) => {
+const PokemonBase = () => {
+    const pokeSpeciesInfo = useSelector((store) => store.pokemon.pokeSpeciesInfo);
+    const pokeInfo = useSelector((store) => store.pokemon.pokeInfo);
+
     return (
         <div className="flex flex-col gap-[13px] max-xss:gap-[0px]">
             <div className="flex items-center">

@@ -1,10 +1,10 @@
 import { fetchPokemonInfo, fetchPokemonSpecies, getAllEvolutions } from "../constants";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { addEvolutionChain, addPokeInfo, addPokeSpecies, removeData } from "../services/pokemon";
+import { useDispatch } from "react-redux";
 
 const usePokemonSpecific = (pokeId) => {
-    const [pokeSpeciesInfo, setPokeSpeciesInfo] = useState(null);
-    const [pokeInfo, setPokeInfo] = useState(null);
-    const [evolutionChain, setEvolutionChain] = useState(null);
+    const dispatch = useDispatch();
 
     const fetchEvolutionChain = async (url) => {
         const response = await fetch(url);
@@ -18,7 +18,7 @@ const usePokemonSpecific = (pokeId) => {
         });
 
         const allEv = await Promise.all(evChain);
-        setEvolutionChain(allEv);
+        dispatch(addEvolutionChain(allEv));
     };
 
     const fetchAll = async () => {
@@ -27,17 +27,17 @@ const usePokemonSpecific = (pokeId) => {
             fetchPokemonInfo(pokeId)
         ]);
 
-        setPokeSpeciesInfo(species);
-        setPokeInfo(info);
+        dispatch(addPokeSpecies(species));
+        dispatch(addPokeInfo(info));
 
         fetchEvolutionChain(species.evolution_chain.url);
     };
 
     useEffect(() => {
         fetchAll();
-    }, [pokeId]);
 
-    return [pokeSpeciesInfo, pokeInfo, evolutionChain];
+        return () => dispatch(removeData());
+    }, [pokeId]);
 };
 
 export default usePokemonSpecific;
