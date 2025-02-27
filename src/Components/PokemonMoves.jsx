@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { getFormattedName } from "../Utils/constants";
+import { getFormattedName } from "../Utils/helpers";
 
 const PokemonMoves = () => {
     const pokeInfo = useSelector((store) => store.pokemon.pokeInfo);

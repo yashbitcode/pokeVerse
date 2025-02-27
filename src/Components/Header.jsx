@@ -15,6 +15,11 @@ const Header = () => {
                             Pokemons
                         </Link>
                     </li>
+                    <li className="text-[1.4rem] font-[400]">
+                        <Link to={"/pokeGPT"}>
+                            PokeGPT
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -5,6 +5,7 @@ import PokemonInfo from "./Pages/PokemonInfo";
 import { Outlet } from "react-router";
 import { Provider } from "react-redux";
 import appStore from "./Utils/services/appStore";
+import PokeGPT from "./Pages/PokeGPT";
 
 const AppLayout = () => {
 	return (
@@ -27,6 +28,10 @@ const appRoutes = createBrowserRouter([
 			{
 				path: "/pokeInfo/:pokeId",
 				element: <PokemonInfo />
+			},
+			{
+				path: "/pokeGPT",
+				element: <PokeGPT />
 			}
 		]
 	}

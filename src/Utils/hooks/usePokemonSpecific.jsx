@@ -1,4 +1,4 @@
-import { fetchPokemonInfo, fetchPokemonSpecies, getAllEvolutions } from "../constants";
+import { fetchPokemonInfo, fetchPokemonSpecies, getAllEvolutions } from "../helpers";
 import { useEffect } from "react";
 import { addEvolutionChain, addPokeInfo, addPokeSpecies, removeData } from "../services/pokemon";
 import { useDispatch } from "react-redux";

@@ -15,7 +15,12 @@ const PokemonsCont = () => {
                     <form className="flex items-center w-full max-w-[550px] mx-auto gap-[15px]" onSubmit={(e) => {
                         e.preventDefault();
 
-                        const searchVal = searchRef.current.value;
+                        let searchVal = "";
+
+                        searchRef.current.value.split(" ").forEach((el) => {
+                            if(el && !searchVal) searchVal += el;
+                            else if(el) searchVal += `-${el}`;
+                        }); 
 
                         if(searchVal) {                            
                             Promise.all(fetchSpecificInfo([{name: searchVal}]))
@@ -24,7 +29,7 @@ const PokemonsCont = () => {
                         }
                         else fetchPokemonInfo();
                     }}>
-                        <input className="text-3xl pb-[6px] outline-0 border-b-2 w-full" type="text" ref={searchRef} />
+                        <input className="text-3xl pb-[4px] outline-0 border-b-2 w-full" type="text" ref={searchRef} placeholder="Eg: Pikachu" />
 
                         <button className="outline-0">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg" alt="search" className="w-9" />

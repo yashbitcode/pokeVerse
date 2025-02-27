@@ -10,7 +10,7 @@ const EvolutionChainCont = () => {
     return (
         <div className="mt-[2.5rem]">
             <h1 className="text-2xl">Evolution Chain</h1>
-            <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] mx-auto mt-[1rem] gap-[20px]">
+            <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,280px))] mx-auto mt-[1rem] gap-[20px]">
                 {
                     evolutionChain.map((el) => (
                         <Link key={el.id} to={`/pokeInfo/${el.id}`}>

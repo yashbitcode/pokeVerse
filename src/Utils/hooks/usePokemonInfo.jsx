@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { fetchPokemonSpecies } from "../helpers";
 
 const usePokemonInfo = () => {
     const [pokemonInfo, setPokemonInfo] = useState(null);
@@ -9,11 +10,7 @@ const usePokemonInfo = () => {
     const pageNumber = useRef(1);
 
     const fetchSpecificInfo = (data) => {
-        return data.map(async (el) => {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${el.name}`);
-            
-            return response.json();
-        });
+        return data.map((el) => fetchPokemonSpecies(el.name));
     };
 
     const fetchPokemonInfo = async () => {

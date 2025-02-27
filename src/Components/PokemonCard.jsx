@@ -1,4 +1,4 @@
-import { getFormattedDesc, getFormattedName } from "../Utils/constants";
+import { getFormattedDesc, getFormattedName } from "../Utils/helpers";
 
 const PokemonCard = ({data}) => {
     const name = getFormattedName(data.name);

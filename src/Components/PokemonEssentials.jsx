@@ -1,4 +1,4 @@
-import { getFormattedName } from "../Utils/constants";
+import { getFormattedName } from "../Utils/helpers";
 
 const PokemonEssentials = ({pokeInfo}) => {
     return (

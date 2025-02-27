@@ -1,4 +1,4 @@
-import { getFormattedName } from "../Utils/constants";
+import { getFormattedName } from "../Utils/helpers";
 import usePokemonEncounters from "../Utils/hooks/usePokemonEncounters";
 
 const PokemonEncounters = ({pokeId, name}) => {
