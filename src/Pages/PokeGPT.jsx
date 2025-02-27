@@ -1,15 +1,40 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import runQuery from "../Utils/services/gemini";
+import { useDispatch, useSelector } from "react-redux";
+import { addPokeGPTResult } from "../Utils/services/pokemon";
+import { fetchPokemonSpecies } from "../Utils/helpers";
+import NotFound from "../Components/NotFound";
+import PokemonCard from "../Components/PokemonCard";
+import { Link } from "react-router";
 
 const PokeGPT = () => {
     const searchRef = useRef(null);
+    const dispatch = useDispatch();
+    const [suggestions, setSuggestions] = useState(null);
+    
+    const pokeAISuggestions = useSelector((store) => store.pokemon.pokeGPTResult);
+
     const fetchAISuggestions = async (query) => {
-        const userQuery = `give me the list of atmax 5 pokemons based on the user query which can be found on "pokeapi.co" and give different result everytime: "${query}" just focus on the context and give me atmax 5 pokemons only and if you don't understand the output give me the empty array`;
+        const userQuery = `give me the list of atmax 5 pokemons based on the user query which can be found on "pokeapi.co" and give different result everytime: "${query}" just focus on the context and give me atmax 5 pokemons only and if you unable to understand or process the user query give the empty array as output`;
 
         const response = await runQuery(userQuery);
 
-        console.log(response);
+        dispatch(addPokeGPTResult(response));
     };
+
+    const fetchResults = async () => {
+        const dataArr = pokeAISuggestions.map((el) => fetchPokemonSpecies(el));
+        if(dataArr.length) {
+            const result = await Promise.all(dataArr);
+
+            setSuggestions(result);
+        }
+        else setSuggestions(["error"]);
+    };
+
+    useEffect(() => {
+        if(pokeAISuggestions) fetchResults();
+    }, [pokeAISuggestions]);
 
     return (
         <div className="mt-[2.5rem]">
@@ -29,6 +54,23 @@ const PokeGPT = () => {
                         </button>
                     </form>
                 </div>
+
+                {
+                    suggestions && (
+                        <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,280px))] justify-center max-w-[1270px] mx-auto mt-[2rem] gap-[20px]">
+                            {
+                                suggestions.map((el) => {
+                                    if(el === "error") return <NotFound key={"err"} />;
+                                    return (
+                                        <Link key={el.id} to={`/pokeInfo/${el.id}`}>
+                                            <PokemonCard data={el} />
+                                        </Link>
+                                    );
+                                })
+                            }
+                        </div>
+                    )
+                }
             </div>
         </div>
     );

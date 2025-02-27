@@ -5,7 +5,8 @@ const pokemonSlice = createSlice({
     initialState: {
         pokeSpeciesInfo: null,
         pokeInfo: null,
-        evolutionChain: null
+        evolutionChain: null,
+        pokeGPTResult: null
     },
     reducers: {
         addPokeSpecies: (state, action) => {
@@ -17,15 +18,16 @@ const pokemonSlice = createSlice({
         addEvolutionChain: (state, action) => {
             state.evolutionChain = action.payload;
         },
-        removeData: () => {
-            return {
-                pokeSpeciesInfo: null,
-                pokeInfo: null,
-                evolutionChain: null
-            };
+        addPokeGPTResult: (state, action) => {
+            state.pokeGPTResult = action.payload;
+        },
+        removeData: (state) => {
+            state.pokeSpeciesInfo = null;
+            state.pokeInfo = null;
+            state.evolutionChain = null;
         }
     }
 });
 
-export const {addPokeSpecies, addPokeInfo, addEvolutionChain, removeData} = pokemonSlice.actions;
+export const {addPokeSpecies, addPokeInfo, addEvolutionChain, addPokeGPTResult, removeData} = pokemonSlice.actions;
 export default pokemonSlice.reducer;
