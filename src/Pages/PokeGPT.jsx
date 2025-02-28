@@ -17,7 +17,12 @@ const PokeGPT = () => {
     const fetchAISuggestions = async (query) => {
         const userQuery = `give me the list of atmax 5 pokemons based on the user query which can be found on "pokeapi.co" and give different result everytime: "${query}" just focus on the context and give me atmax 5 pokemons only and if you unable to understand or process the user query give the empty array as output`;
 
-        const response = await runQuery(userQuery);
+        const response = await fetch("/api/gemini", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userQuery }),
+        });
+    
 
         dispatch(addPokeGPTResult({
             searchQuery: query,
