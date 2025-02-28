@@ -6,7 +6,7 @@ export const BaseShimmer = ({limit}) => {
                     const shimArr = [];
                     for(let i = 1; i <= limit; i++) {
                         shimArr.push(
-                            <div className="w-full h-[440px] rounded-[10px] shimmer-animate"></div>
+                            <div key={i} className="w-full h-[440px] rounded-[10px] shimmer-animate"></div>
                         );
                     }
 

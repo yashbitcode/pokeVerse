@@ -9,13 +9,11 @@ import { BaseShimmer } from "./Shimmer";
 const PokemonsCont = () => {
     const {pokemonInfo, setPokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo} = usePokemonInfo();
 
-    // if(pokemonInfo) return <BaseShimmer limit={10} />
-
     return (
         <div className="mt-[2.5rem]">
             <div className="w-full text-center">
                 <div>
-                    <form className="flex items-center w-full max-w-[550px] mx-auto gap-[15px]" onSubmit={(e) => {
+                    <form className="flex items-center w-full max-w-[550px] max-xsl:max-w-[280px] mx-auto gap-[10px]" onSubmit={(e) => {
                         e.preventDefault();
 
                         let searchVal = "";
@@ -32,10 +30,10 @@ const PokemonsCont = () => {
                         }
                         else fetchPokemonInfo();
                     }}>
-                        <input className="text-3xl pb-[4px] outline-0 border-b-2 w-full" type="text" ref={searchRef} placeholder="Eg: Pikachu" />
+                        <input className="text-3xl max-xsl:text-xl pb-[4px] outline-0 border-b-[1.5px] w-full" type="text" ref={searchRef} placeholder="Eg: Pikachu" />
 
                         <button className="outline-0">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg" alt="search" className="w-9" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg" alt="search" className="w-9 max-xsl:w-[20px]" />
                         </button>
                     </form>
                 </div>
