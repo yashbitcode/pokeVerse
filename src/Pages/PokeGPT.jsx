@@ -5,6 +5,7 @@ import { fetchPokemonSpecies } from "../Utils/helpers";
 import NotFound from "../Components/NotFound";
 import PokemonCard from "../Components/PokemonCard";
 import { Link } from "react-router";
+import { BaseShimmer } from "../Components/Shimmer";
 
 const PokeGPT = () => {
     const searchRef = useRef(null);
@@ -13,9 +14,10 @@ const PokeGPT = () => {
     const pokeAISuggestions = useSelector((store) => store.pokemon.pokeGPTResult);
     const [suggestions, setSuggestions] = useState(null);
     const [searchInp, setSearchInp] = useState(pokeAISuggestions?.searchQuery || "");
+    const [loading, setLoading] = useState(false);
 
     const fetchAISuggestions = async (query) => {
-        const userQuery = `give me the list of atmax 5 pokemons based on the user query which can be found on "pokeapi.co" and give different result everytime: "${query}" just focus on the context and give me atmax 5 pokemons only and if you unable to understand or process the user query give the empty array as output`;
+        const userQuery = `give me the list of atmax 8 common pokemon names like for (Alolan Exeggutor) give me (Exeggutor), for (Mega Metagross) give me (Metagross) and etc. Based on the user query which can be found on "pokeapi.co": "${query}" just focus on the context and give me atmax 8 common pokemon names only and if you unable to understand or process the user query give the empty array as output`;
 
         const response = await fetch("/api/AISuggestions", {
             method: "POST",
@@ -24,6 +26,8 @@ const PokeGPT = () => {
         }); 
 
         const data = await response.json();   
+
+        console.log(data.response);
         
         dispatch(addPokeGPTResult({
             searchQuery: query,
@@ -40,11 +44,15 @@ const PokeGPT = () => {
             setSuggestions(result);
         }
         else setSuggestions(["error"]);
+
+        setLoading(false);
     };
 
     useEffect(() => {
         if(pokeAISuggestions) fetchResults();
     }, [pokeAISuggestions]);
+
+    if(loading) return <BaseShimmer limit={5} />;
 
     return (
         <div className="mt-[2.5rem]">
@@ -53,6 +61,8 @@ const PokeGPT = () => {
                     <form className="flex items-center w-full max-w-[550px] max-xsl:max-w-[280px] mx-auto gap-[10px]" onSubmit={(e) => {
                             e.preventDefault();
                             if(!searchRef.current.value) return;
+
+                            setLoading(true);
 
                             fetchAISuggestions(searchRef.current.value);
                         }}>
