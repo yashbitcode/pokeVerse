@@ -10,8 +10,6 @@ export const BaseShimmer = ({limit}) => {
                         );
                     }
 
-                    console.log(shimArr);
-
                     return shimArr;
                 })()
             }
