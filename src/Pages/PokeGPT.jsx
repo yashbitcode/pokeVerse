@@ -21,12 +21,13 @@ const PokeGPT = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userQuery }),
-        });
-    
+        }); 
+
+        const data = await response.json();    
 
         dispatch(addPokeGPTResult({
             searchQuery: query,
-            data: response
+            data: data.response
         }));
     };
 
