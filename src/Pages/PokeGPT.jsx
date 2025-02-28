@@ -20,7 +20,7 @@ const PokeGPT = () => {
         const response = await fetch("/api/AISuggestions", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userQuery }),
+            body: JSON.stringify({ query: userQuery }),
         }); 
 
         const data = await response.json();   

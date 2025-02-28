@@ -23,7 +23,7 @@ const handler = async (req, res) => {
     const result = await chatSession.sendMessage(query);
     const responseText = result.response.text();
 
-    res.status(200).json({ response: responseText });
+    return res.status(200).json({ response: responseText });
 };
   
 export default handler;
