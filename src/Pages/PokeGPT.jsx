@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import runQuery from "../Utils/services/gemini";
 import { useDispatch, useSelector } from "react-redux";
 import { addPokeGPTResult } from "../Utils/services/pokemon";
 import { fetchPokemonSpecies } from "../Utils/helpers";
 import NotFound from "../Components/NotFound";
 import PokemonCard from "../Components/PokemonCard";
-import { data, Link } from "react-router";
+import { Link } from "react-router";
 
 const PokeGPT = () => {
     const searchRef = useRef(null);
