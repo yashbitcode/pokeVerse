@@ -23,7 +23,9 @@ const PokeGPT = () => {
             body: JSON.stringify({ userQuery }),
         }); 
 
-        const data = await response.json();    
+        const data = await response.json();   
+        
+        console.log(data.response);
 
         dispatch(addPokeGPTResult({
             searchQuery: query,
