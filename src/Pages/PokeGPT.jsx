@@ -17,7 +17,7 @@ const PokeGPT = () => {
     const [loading, setLoading] = useState(false);
 
     const fetchAISuggestions = async (query) => {
-        const userQuery = `give me the list of atmax 8 common pokemon names like for (Alolan Exeggutor) give me (Exeggutor), for (Mega Metagross) give me (Metagross) and etc. Based on the user query which can be found on "pokeapi.co": "${query}" just focus on the context and give me atmax 8 common pokemon names only and if you unable to understand or process the user query give the empty array as output`;
+        const userQuery = `give me the list of atmax 5 common pokemon names like for (Alolan Exeggutor) give me (Exeggutor), for (Mega Metagross) give me (Metagross) and etc. Based on the user query which can be found on "pokeapi.co": "${query}" just focus on the context and give me atmax 5 common pokemon names only and if you unable to understand or process the user query give the empty array as output`;
 
         const response = await fetch("/api/AISuggestions", {
             method: "POST",
@@ -39,9 +39,14 @@ const PokeGPT = () => {
         const dataArr = pokeAISuggestions.data.map((el) => fetchPokemonSpecies(el));
 
         if(dataArr.length) {
-            const result = await Promise.all(dataArr);
+            try {
+                const result = await Promise.all(dataArr);
 
-            setSuggestions(result);
+                setSuggestions(result);
+            }
+            catch(err) {
+                setSuggestions(["error"]);
+            }
         }
         else setSuggestions(["error"]);
 
