@@ -20,6 +20,11 @@ const Header = () => {
                             PokeGPT
                         </Link>
                     </li>
+                    <li className="text-[1.1rem] max-xss:text-[0.8rem] font-[400]">
+                        <Link to={"/pokeAIQuiz"}>
+                            PokeAIQuiz
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </div>

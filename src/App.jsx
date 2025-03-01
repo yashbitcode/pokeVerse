@@ -6,6 +6,7 @@ import { Outlet } from "react-router";
 import { Provider } from "react-redux";
 import appStore from "./Utils/services/appStore";
 import PokeGPT from "./Pages/PokeGPT";
+import PokeAIQuiz from "./Pages/PokeAIQuiz";
 
 const AppLayout = () => {
 	return (
@@ -32,6 +33,10 @@ const appRoutes = createBrowserRouter([
 			{
 				path: "/pokeGPT",
 				element: <PokeGPT />
+			},
+			{
+				path: "/pokeAIQuiz",
+				element: <PokeAIQuiz />
 			}
 		]
 	}
