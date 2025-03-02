@@ -36,6 +36,20 @@ const PokeAIQuiz = () => {
                 <li className="p-[8px] cursor-pointer hover:bg-gray-200" key={idx} onClick={() => handleSelection(name)}>{name}</li>
             ) : null;    
         });
+    };  
+
+    const fetchQuizQuestions = async () => {
+        console.log(selectedPokemon);
+        const userQuery = `give me ${questionsCnt} mcq based questions in a json format for a given pokemon: "${selectedPokemon.current}" everytime give me unique questions`;
+
+        const response = await fetch("/api/AISuggestions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query: userQuery }),
+        }); 
+
+        const data = await response.json();
+        
     };
 
     const handleQuiz = () => {
@@ -46,16 +60,15 @@ const PokeAIQuiz = () => {
             if(!selectedPokemon.current) setError("Select Pokemon");
             else if(!questionsCnt || (+questionsCnt < 5 || +questionsCnt > 20)) setError("Select Range B/W 5-20");
             else if(!quizName) setError("Name The Quiz");
-            else setQuizSetup(true);
+            else {
+                setQuizSetup(true);
+                fetchQuizQuestions();
+            }
 
             setIsLoading(false);
 
         }, 500);
     };
-
-    // const fetchQuizQuestions = () => {
-
-    // };
 
     const pokeListMemo = useMemo(getPokeList, [searchInp]);
 
