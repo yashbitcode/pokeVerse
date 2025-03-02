@@ -7,7 +7,7 @@ import { Link } from "react-router";
 import { BaseShimmer } from "./Shimmer";
 
 const PokemonsCont = () => {
-    const {pokemonInfo, setPokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo} = usePokemonInfo();
+    const {pokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo} = usePokemonInfo();
 
     return (
         <div className="mt-[2.5rem]">
