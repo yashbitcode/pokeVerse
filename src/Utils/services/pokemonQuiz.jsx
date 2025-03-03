@@ -4,12 +4,13 @@ const pokemonQuiz = createSlice({
     name: "pokequiz",
     initialState: {
         quizQuestions: null,
-        currentQ: null,
-        completed: null
+        currentQ: null
     },
     reducers: {
         addQuizQuestions: (state, action) => {
-            state.quizQuestions = action.payload;
+            const {quizQuestions, currentQ} = action.payload;
+            state.quizQuestions = quizQuestions;
+            state.currentQ = currentQ;
         },
         increamentCnt: (state) => {
             if((state.currentQ + 1) > state.quizQuestions.length) state.completed = true;

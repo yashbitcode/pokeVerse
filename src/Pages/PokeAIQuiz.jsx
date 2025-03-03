@@ -3,15 +3,23 @@ import { allPokemonsList } from "../Utils/constants";
 import { getFormattedName } from "../Utils/helpers";
 import { HashLoader } from "react-spinners";
 import QuizComp from "../Components/QuizComp";
+import { useDispatch, useSelector } from "react-redux";
+import { addQuizQuestions } from "../Utils/services/pokemonQuiz";
 
 const PokeAIQuiz = () => {
     const [canShow, setCanShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [quizSetup, setQuizSetup] = useState(false);
     const [error, setError] = useState(null);
     const [questionsCnt, setQuestionsCnt] = useState(5);
     const [quizName, setQuizName] = useState("");
     const [searchInp, setSearchInp] = useState("");
+
+    const dispatch = useDispatch();
+
+    const quizDataLS = JSON.parse(localStorage.getItem("quizData"));
+    const quizData = useSelector((store) => store.pokemonQuiz.quizQuestions);
+
+    if(quizDataLS && !quizData) dispatch(addQuizQuestions(quizDataLS));
 
     const selectedPokemon = useRef(null);
 
@@ -34,12 +42,11 @@ const PokeAIQuiz = () => {
     
             return (name.toLowerCase().includes(searchInp.toLowerCase())) ? (
                 <li className="p-[8px] cursor-pointer hover:bg-gray-200" key={idx} onClick={() => handleSelection(name)}>{name}</li>
-            ) : null;    
+            ) : null;
         });
     };  
 
     const fetchQuizQuestions = async () => {
-        console.log(selectedPokemon);
         const userQuery = `give me ${questionsCnt} mcq based questions in a json format for a given pokemon: "${selectedPokemon.current}" everytime give me unique questions`;
 
         const response = await fetch("/api/AISuggestions", {
@@ -49,7 +56,13 @@ const PokeAIQuiz = () => {
         }); 
 
         const data = await response.json();
-        
+        const obj = {
+            quizQuestions: data.response,
+            currentQ: 0
+        };
+
+        dispatch(addQuizQuestions(obj)); 
+        localStorage.setItem("quizData", JSON.stringify(obj));
     };
 
     const handleQuiz = () => {
@@ -60,10 +73,7 @@ const PokeAIQuiz = () => {
             if(!selectedPokemon.current) setError("Select Pokemon");
             else if(!questionsCnt || (+questionsCnt < 5 || +questionsCnt > 20)) setError("Select Range B/W 5-20");
             else if(!quizName) setError("Name The Quiz");
-            else {
-                setQuizSetup(true);
-                fetchQuizQuestions();
-            }
+            else fetchQuizQuestions();
 
             setIsLoading(false);
 
@@ -72,7 +82,7 @@ const PokeAIQuiz = () => {
 
     const pokeListMemo = useMemo(getPokeList, [searchInp]);
 
-    if(quizSetup) return <QuizComp />
+    if(quizDataLS || quizData) return <QuizComp />
 
     return (
         <div className="mt-[2rem] w-full max-w-[600px] mx-auto">
