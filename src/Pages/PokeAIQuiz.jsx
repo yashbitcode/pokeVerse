@@ -58,11 +58,14 @@ const PokeAIQuiz = () => {
         const data = await response.json();
         const obj = {
             quizQuestions: data.response,
-            currentQ: 0
+            currentQ: 0,
+            score: 0
         };
 
         dispatch(addQuizQuestions(obj)); 
         localStorage.setItem("quizData", JSON.stringify(obj));
+
+        setIsLoading(false);
     };
 
     const handleQuiz = () => {
@@ -70,13 +73,19 @@ const PokeAIQuiz = () => {
         setError(null);
 
         setTimeout(() => {
-            if(!selectedPokemon.current) setError("Select Pokemon");
-            else if(!questionsCnt || (+questionsCnt < 5 || +questionsCnt > 20)) setError("Select Range B/W 5-20");
-            else if(!quizName) setError("Name The Quiz");
+            if(!selectedPokemon.current) {
+                setError("Select Pokemon");
+                setIsLoading(false);
+            }
+            else if(!questionsCnt || (+questionsCnt < 5 || +questionsCnt > 20)) {
+                setError("Select Range B/W 5-20");
+                setIsLoading(false);
+            }
+            else if(!quizName) {
+                setError("Name The Quiz");
+                setIsLoading(false);
+            }
             else fetchQuizQuestions();
-
-            setIsLoading(false);
-
         }, 500);
     };
 
@@ -88,7 +97,10 @@ const PokeAIQuiz = () => {
         <div className="mt-[2rem] w-full max-w-[600px] mx-auto">
             <h1 className="text-3xl text-center mb-[1rem]">AI Quiz</h1>
             <div className="mx-auto max-w-[400px] w-full relative">  
-                <input type="text" className="w-full border-b-[1.5px] text-2xl outline-0 pb-[4px]" value={searchInp} placeholder={"Eg: Pikachu"} onChange={(e) => setSearchInp(e.target.value)} onFocus={handleFocus} onBlur={handleBlur} />
+                <input type="text" className="w-full border-b-[1.5px] text-2xl outline-0 pb-[4px]" value={searchInp} placeholder={"Eg: Pikachu"} onChange={(e) => {
+                    setSearchInp(e.target.value)
+                    if(selectedPokemon.current) selectedPokemon.current = null;
+                }} onFocus={handleFocus} onBlur={handleBlur} />
                 
                 <div className="w-full bg-white overflow-auto absolute mt-[0.5rem]">
                     <ul className={`w-full flex flex-col gap-[5px] transition-all duration-100 ${canShow ? "h-[200px]" : "h-[0px]"}`}>{pokeListMemo}</ul>

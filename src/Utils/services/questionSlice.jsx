@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const questionSlice = createSlice({
     name: "question-slice",
     initialState: {
-        completed: false
+        completed: false,
     },
     reducers: {
         flagCompletion: (state) => {

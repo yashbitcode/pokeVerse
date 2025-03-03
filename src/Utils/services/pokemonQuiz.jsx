@@ -4,20 +4,29 @@ const pokemonQuiz = createSlice({
     name: "pokequiz",
     initialState: {
         quizQuestions: null,
-        currentQ: null
+        currentQ: null,
+        score: null,
     },
     reducers: {
         addQuizQuestions: (state, action) => {
             const {quizQuestions, currentQ} = action.payload;
             state.quizQuestions = quizQuestions;
             state.currentQ = currentQ;
+            state.score = 0;
         },
         increamentCnt: (state) => {
-            if((state.currentQ + 1) > state.quizQuestions.length) state.completed = true;
-            else state.currentQ++;
+            state.currentQ++;
+        },
+        scoreIncrement: (state) => {
+            state.score++;
+        },
+        resetData: (state) => {
+            state.quizQuestions = null;
+            state.currentQ = null;
+            state.score = null;
         }
     }
 });
 
-export const {addQuizQuestions, increamentCnt} = pokemonQuiz.actions;
+export const {addQuizQuestions, increamentCnt, resetData, scoreIncrement} = pokemonQuiz.actions;
 export default pokemonQuiz.reducer;

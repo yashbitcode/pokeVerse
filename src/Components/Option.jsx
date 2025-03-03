@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { flagCompletion } from "../Utils/services/questionSlice";
-import { increamentCnt } from "../Utils/services/pokemonQuiz";
+import { increamentCnt, scoreIncrement } from "../Utils/services/pokemonQuiz";
 
 const Option = ({op, isRight}) => {
     const [isClicked, setIsClicked] = useState(false);
     const optionRef = useRef(null);
+    
     const completed = useSelector((store) => store.question.completed);
     const dispatch = useDispatch();
 
@@ -16,9 +17,15 @@ const Option = ({op, isRight}) => {
         setIsClicked(true);
 
         setTimeout(() => {
+            const {quizQuestions, currentQ, score} = JSON.parse(localStorage.getItem("quizData"));
+            
+            localStorage.setItem("quizData", JSON.stringify({quizQuestions: quizQuestions, currentQ: currentQ + 1, score: (isRight ? score + 1 : score)}));
+
             dispatch(increamentCnt());
             dispatch(flagCompletion());
-            
+
+            if(isRight) dispatch(scoreIncrement());
+
             setIsClicked(false);
         }, 1000);
     };

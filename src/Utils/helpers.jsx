@@ -22,8 +22,11 @@ export const getFormattedDesc = (desc) => {
 export const getFormattedName = (name) => {
     let formattedName = "";
 
-    name.split("-").forEach((el) => {
-        formattedName += el[0].toUpperCase() + el.substr(1) + " ";
+    const nameArr = name.split("-");
+
+    nameArr.forEach((el, idx) => {
+        const temp = el[0].toUpperCase() + el.substr(1);
+        formattedName += ((idx + 1) === nameArr.length) ? temp : temp + " ";
     });
 
     return formattedName;
