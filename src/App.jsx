@@ -10,7 +10,7 @@ import PokeAIQuiz from "./Pages/PokeAIQuiz";
 
 const AppLayout = () => {
 	return (
-		<div className="font-[Poppins] px-[1rem] pt-[1rem] pb-[3rem]">
+		<div className="font-[Poppins] w-full pb-[2rem]">
 			<Header /> 
 			<Outlet />
 		</div>

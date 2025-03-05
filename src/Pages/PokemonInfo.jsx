@@ -16,7 +16,7 @@ const PokemonInfo = () => {
     const pokeInfo = useSelector((store) => store.pokemon.pokeInfo);
 
     return (
-        <div className="mt-[2.5rem] w-full max-w-[1150px] mx-auto relative">
+        <div className="mt-[2.5rem] w-full max-w-[1150px] mx-auto relative px-[1rem]">
             {
                 (pokeSpeciesInfo && pokeInfo) ? (
                     <div className="flex w-full gap-[3.5rem] max-xs:flex-col">

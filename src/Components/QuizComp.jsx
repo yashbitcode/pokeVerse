@@ -8,12 +8,12 @@ const QuizComp = () => {
     if(currentQ === quizQuestions.length) return <QuizCompleted />
 
     return (
-        <div className="mt-[2rem] w-full max-w-[800px] mx-auto">
+        <div className="mt-[2rem] w-full max-w-[800px] mx-auto px-[1rem]">
             <h1 className="text-2xl mb-[0.5rem]">PokeAI Quiz</h1>
 
             <div className="w-full h-[1.5px] mb-[20px] bg-black "></div>
 
-            <div className="mt-[10px] text-xl">{`${currentQ + 1}. ${quizQuestions[currentQ].question}`}</div>
+            <div className="mt-[10px] text-xl max-[500px]:text-[1.1rem]">{`${currentQ + 1}. ${quizQuestions[currentQ].question}`}</div>
 
             <QuizOptions options={quizQuestions[currentQ].options} answer={quizQuestions[currentQ].answer} />
 

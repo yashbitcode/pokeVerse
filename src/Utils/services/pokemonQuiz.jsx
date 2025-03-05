@@ -9,10 +9,10 @@ const pokemonQuiz = createSlice({
     },
     reducers: {
         addQuizQuestions: (state, action) => {
-            const {quizQuestions, currentQ} = action.payload;
+            const {quizQuestions, currentQ, score} = action.payload;
             state.quizQuestions = quizQuestions;
             state.currentQ = currentQ;
-            state.score = 0;
+            state.score = score || 0;
         },
         increamentCnt: (state) => {
             state.currentQ++;

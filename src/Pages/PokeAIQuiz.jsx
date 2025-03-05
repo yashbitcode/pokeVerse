@@ -94,10 +94,10 @@ const PokeAIQuiz = () => {
     if(quizDataLS || quizData) return <QuizComp />
 
     return (
-        <div className="mt-[2rem] w-full max-w-[600px] mx-auto">
+        <div className="mt-[2rem] w-full max-w-[600px] mx-auto px-[1rem]">
             <h1 className="text-3xl text-center mb-[1rem]">AI Quiz</h1>
             <div className="mx-auto max-w-[400px] w-full relative">  
-                <input type="text" className="w-full border-b-[1.5px] text-2xl outline-0 pb-[4px]" value={searchInp} placeholder={"Eg: Pikachu"} onChange={(e) => {
+                <input type="text" className="w-full border-b-[1.5px] text-2xl outline-0 pb-[4px] max-[500px]:text-xl" value={searchInp} placeholder={"Eg: Pikachu"} onChange={(e) => {
                     setSearchInp(e.target.value)
                     if(selectedPokemon.current) selectedPokemon.current = null;
                 }} onFocus={handleFocus} onBlur={handleBlur} />
@@ -109,11 +109,11 @@ const PokeAIQuiz = () => {
 
             <div className="mt-[2rem] flex flex-col gap-[17px] w-full items-center">
                 <div className="flex gap-[10px]">
-                    <span className="text-xl shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]">Type of Questions: </span>
-                    <span className="text-xl shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]">MCQs</span>
+                    <span className="text-xl max-[500px]:text-[1rem] text-nowrap shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]">Type of Questions: </span>
+                    <span className="text-xl max-[500px]:text-[1rem] text-nowrap shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]">MCQs</span>
                 </div>
                 <div className="flex gap-[10px]">
-                    <span className="text-xl shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]">Number of Questions: </span>
+                    <span className="text-xl max-[500px]:text-[1rem] text-nowrap shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]">No. of Questions: </span>
                     
                     <input className="outline-0 text-xl border-b-[1.5px] w-[100px]" type="number" value={questionsCnt} onChange={(e) => setQuestionsCnt(e.target.value)} onKeyDown={(e) => {
                         const invalidKeys = ["e", "+", "-"];
@@ -122,20 +122,20 @@ const PokeAIQuiz = () => {
                         
                 </div>
                 <div className="flex gap-[10px]">
-                    <span className="text-xl shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px] text-nowrap">Quiz Name: </span>
+                    <span className="text-xl max-[500px]:text-[1rem] text-nowrap shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]">Quiz Name: </span>
 
-                    <input className="outline-0 text-xl border-b-[1.5px] w-full" type="text" value={quizName} placeholder="Eg: Test Quiz" onChange={(e) => setQuizName(e.target.value)} />
+                    <input className="outline-0 text-xl border-b-[1.5px] w-full max-[500px]:text-[1rem] text-nowrap" type="text" value={quizName} placeholder="Eg: Test Quiz" onChange={(e) => setQuizName(e.target.value)} />
                         
                 </div>
                 
-                <button className="text-xl rounded-[5px] bg-red-500 text-white w-[120px] h-[40px] items-center flex justify-center cursor-pointer" onClick={handleQuiz}> 
+                <button className="text-xl max-[500px]:text-[1rem] rounded-[5px] bg-red-500 text-white w-[120px] h-[40px] items-center flex justify-center cursor-pointer" onClick={handleQuiz}> 
                     {
                         isLoading ? <HashLoader color="white" size={25} /> : "Submit"
                     }
                 </button>
                 {
                     error && (
-                        <span className="text-xl bg-red-500 text-white py-[6px] px-[12px] rounded-[5px]">Error: {error}</span>
+                        <span className="text-xl max-[500px]:text-[1rem] bg-red-500 text-white py-[6px] px-[12px] rounded-[5px]">Error: {error}</span>
                     )
                 }
             </div>

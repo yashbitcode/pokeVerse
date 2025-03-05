@@ -10,7 +10,7 @@ const PokemonsCont = () => {
     const {pokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo} = usePokemonInfo();
 
     return (
-        <div className="mt-[2.5rem]">
+        <div className="mt-[2.5rem] mx-[1rem]">
             <div className="w-full text-center">
                 <div>
                     <form className="flex items-center w-full max-w-[550px] max-xsl:max-w-[280px] mx-auto gap-[10px]" onSubmit={(e) => {
