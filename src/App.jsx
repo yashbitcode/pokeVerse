@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import appStore from "./Utils/services/appStore";
 import PokeGPT from "./Pages/PokeGPT";
 import PokeAIQuiz from "./Pages/PokeAIQuiz";
+import PokeAIRecognizer from "./Pages/PokeAIRecognizer";
 
 const AppLayout = () => {
 	return (
@@ -37,6 +38,10 @@ const appRoutes = createBrowserRouter([
 			{
 				path: "/pokeAIQuiz",
 				element: <PokeAIQuiz />
+			},
+			{
+				path: "/pokeRecognizer",
+				element: <PokeAIRecognizer />
 			}
 		]
 	}

@@ -3,6 +3,7 @@ import logo from "../assets/logo.png";
 import menu from "../assets/menu.svg";
 import cross from "../assets/cross.svg";
 import { useState } from "react";
+import PokeAIRecognizer from "../Pages/PokeAIRecognizer";
 
 const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);
@@ -32,6 +33,11 @@ const Header = () => {
                         <li className="text-[1.2rem] font-[400]">
                             <Link to={"/pokeAIQuiz"}>
                                 PokeAIQuiz
+                            </Link>
+                        </li>
+                        <li className="text-[1.2rem] font-[400]">
+                            <Link to={"/pokeRecognizer"}>
+                                PokeAIRecognizer
                             </Link>
                         </li>
                     </ul>
@@ -68,6 +74,11 @@ const Header = () => {
                         <li className="text-[1.4rem] font-[400]" onClick={handleSideBar}>
                             <Link to={"/pokeAIQuiz"}>
                                 PokeAIQuiz
+                            </Link>
+                        </li>
+                        <li className="text-[1.4rem] font-[400]" onClick={handleSideBar}>
+                            <Link to={"/pokeRecognizer"}>
+                                PokeAIRecognizer
                             </Link>
                         </li>
                     </ul>

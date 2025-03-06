@@ -22,6 +22,8 @@ const usePokeAI = () => {
         }); 
 
         const data = await response.json();
+
+        console.log(data.response);
         
         dispatch(addPokeGPTResult({
             searchQuery: query,
@@ -30,7 +32,18 @@ const usePokeAI = () => {
     };
 
     const fetchResults = async () => {
-        const dataArr = pokeAISuggestions.data.map((el) => fetchPokemonSpecies(el));
+        const dataArr = pokeAISuggestions.data.map((el) => {
+            let searchVal = "";
+
+            el.split(" ").forEach((el) => {
+                if(el && !searchVal) searchVal += el.toLowerCase();
+                else if(el) searchVal += `-${el.toLowerCase()}`;
+            }); 
+
+            searchVal = searchVal.replace(/\./g, "");
+
+            return fetchPokemonSpecies(searchVal);
+        });
 
         if(dataArr.length) {
             try {

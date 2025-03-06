@@ -31,3 +31,8 @@ export const getFormattedName = (name) => {
 
     return formattedName;
 };
+
+// export const getTruncatedStr = (str) => {
+//     if(str.length < 20) return str;
+//     return str.substr(0, 20) + "...";
+// };

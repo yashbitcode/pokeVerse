@@ -1,6 +1,6 @@
 export const BaseShimmer = ({limit}) => {
     return (
-        <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,280px))] justify-center max-w-[1270px] mx-auto mt-[2rem] gap-[20px]">
+        <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,280px))] justify-center max-w-[1270px] mx-auto mt-[2rem] gap-[20px] px-[1rem]">
             {
                 (() => {
                     const shimArr = [];
@@ -19,7 +19,7 @@ export const BaseShimmer = ({limit}) => {
 
 export const MainInfoShimmer = () => {
     return (
-        <div className="mt-[2.5rem] w-full max-w-[1150px] mx-auto">
+        <div className="mt-[2.5rem] w-full max-w-[1150px] mx-auto px-[1rem]">
             <div className="flex w-full gap-[2rem] xs:h-[500px] max-xs:flex-col">
                 <div className="w-full max-w-[370px] flex items-center max-xs:h-[300px] max-xs:mx-auto shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] p-[10px] rounded-[8px] shimmer-animate"></div>
 

@@ -19,9 +19,11 @@ const PokemonsCont = () => {
                         let searchVal = "";
 
                         searchRef.current.value.split(" ").forEach((el) => {
-                            if(el && !searchVal) searchVal += el;
-                            else if(el) searchVal += `-${el}`;
+                            if(el && !searchVal) searchVal += el.toLowerCase();
+                            else if(el) searchVal += `-${el.toLowerCase()}`;
                         }); 
+
+                        searchVal = searchVal.replace(/\./g, "");
                         
                         if(searchVal) {                            
                             Promise.all(fetchSpecificInfo([{name: searchVal}]))
