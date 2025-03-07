@@ -1,15 +1,19 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { HashLoader } from "react-spinners";
+import { addSummary, addPokeList, resetData } from "../Utils/services/pokemonRecognizer";
+import PokeRecognitionCont from "../Components/PokeRecognitionCont";
 
 const PokeAIRecognizer = () => {    
     const [selectedImg, setSelectedImg] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [AIResponse, setAIResponse] = useState(null);
+    const dispatch = useDispatch();
 
     const handleImage = (e) => setSelectedImg(e.target.files[0]);
 
     const handleSubmit = async () => {
+        dispatch(resetData());
         setIsLoading(true);
         setError(null);
 
@@ -41,7 +45,9 @@ const PokeAIRecognizer = () => {
         const data = await response.json();
         const mainResponse = JSON.parse(data.response);
 
-        setAIResponse(mainResponse);
+        dispatch(addSummary(mainResponse[0]));
+        dispatch(addPokeList(mainResponse[1]));
+        
         setIsLoading(false);
     };        
       
@@ -51,7 +57,7 @@ const PokeAIRecognizer = () => {
                 <label htmlFor="img-file">
                     <i className="fa-solid fa-cloud-arrow-up text-red-500 group-hover:text-red-700 transition-all fa-2xl"></i>
                 </label>
-                <label className="text-red-500 text-center group-hover:text-red-700 transition-all text-[1.1rem] mt-[0.5rem]">{`${selectedImg ? selectedImg.name : "Choose a file"}`}</label>
+                <label className="text-red-500 text-center group-hover:text-red-700 transition-all text-[1rem] mt-[0.5rem]">{`${selectedImg ? selectedImg.name : "Choose a file"}`}</label>
                 <label htmlFor="img-file" className="text-white bg-red-500 group-hover:bg-red-700 transition-all p-[8px] mt-[0.7rem] rounded-[2px] cursor-pointer text-[1rem]">Browse Image</label>
                 <input type="file" className="invisible absolute" name="img-file" id="img-file" accept="image/jpeg, image/png, image/webp" onChange={handleImage} />
             </form>
@@ -68,8 +74,8 @@ const PokeAIRecognizer = () => {
                     )
                 }
             </div>
-
             
+            <PokeRecognitionCont />
         </div>
     );
 };

@@ -18,7 +18,7 @@ const handler = async (req, res) => {
             },
         },
         `Identify all Pokémon present in the given image and return array in this format:
-        [100 words summary, pokemon array each element in double quotes]
+        [20 words summary, pokemon array each element in double quotes]
         If no Pokémon are detected, return:
         ["Out Of Context Image Doesn't Have Any Pokemon", []]
         
@@ -27,6 +27,6 @@ const handler = async (req, res) => {
     
     const responseText = result.response.text();
     return res.status(200).json({response: responseText});
-}
+};
 
 export default handler

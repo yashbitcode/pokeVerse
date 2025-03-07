@@ -37,7 +37,7 @@ const Header = () => {
                         </li>
                         <li className="text-[1.2rem] font-[400]">
                             <Link to={"/pokeRecognizer"}>
-                                PokeAIRecognizer
+                                PokeRecognizer
                             </Link>
                         </li>
                     </ul>
@@ -78,7 +78,7 @@ const Header = () => {
                         </li>
                         <li className="text-[1.4rem] font-[400]" onClick={handleSideBar}>
                             <Link to={"/pokeRecognizer"}>
-                                PokeAIRecognizer
+                                PokeRecognizer
                             </Link>
                         </li>
                     </ul>
