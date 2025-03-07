@@ -3,13 +3,12 @@ import logo from "../assets/logo.png";
 import menu from "../assets/menu.svg";
 import cross from "../assets/cross.svg";
 import { useState } from "react";
-import PokeAIRecognizer from "../Pages/PokeAIRecognizer";
 
 const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const toggleMenu = () => setOpenMenu(!openMenu);
 
-    const handleSideBar = () => setOpenMenu(false);
+    const handleSideBar = () => setOpenMenu(false); 
 
     return (
         <div>
@@ -18,24 +17,24 @@ const Header = () => {
                     <img src={logo} alt="pokeVerse" />
                 </div>
 
-                <div className="w-full max-w-[500px] max-[680px]:hidden">
+                <div className="w-full max-w-[500px] max-[760px]:hidden">
                     <ul className="flex w-full justify-end gap-[20px] text-white">
-                        <li className="text-[1.2rem] font-[400]">
+                        <li className="text-[1.1rem] font-[400]">
                             <Link to={"/"}>
                                 Pokemons
                             </Link>
                         </li>
-                        <li className="text-[1.2rem] font-[400]">
+                        <li className="text-[1.1rem] font-[400]">
                             <Link to={"/pokeGPT"}>
                                 PokeGPT
                             </Link>
                         </li>
-                        <li className="text-[1.2rem] font-[400]">
+                        <li className="text-[1.1rem] font-[400]">
                             <Link to={"/pokeAIQuiz"}>
                                 PokeAIQuiz
                             </Link>
                         </li>
-                        <li className="text-[1.2rem] font-[400]">
+                        <li className="text-[1.1rem] font-[400]">
                             <Link to={"/pokeRecognizer"}>
                                 PokeRecognizer
                             </Link>
@@ -43,7 +42,7 @@ const Header = () => {
                     </ul>
                 </div>
 
-                <div className="w-[25px] text-white cursor-pointer min-[680px]:hidden" onClick={toggleMenu}>
+                <div className="w-[25px] text-white cursor-pointer min-[760px]:hidden" onClick={toggleMenu}>
                     <img src={menu} alt="menu" />
                 </div>
 
@@ -61,7 +60,7 @@ const Header = () => {
                     </div>
 
                     <ul className="flex flex-col w-full justify-end gap-[20px] mt-[2rem] px-[20px]">
-                        <li className="text-[1.4rem] font-[400]" onClick={handleSideBar}>
+                        <li className="text-[1.4rem] font-[400]" onClick={handleSideBar}> 
                             <Link to={"/"}>
                                 Pokemons
                             </Link>

@@ -17,4 +17,15 @@ const PokemonCard = ({data}) => {
     );
 };
 
+export const RecognizedPokeCard = (PokeCard) => {
+    return ({data}) => {
+        return (
+            <div className="relative h-full">
+                <span className="text-[0.9rem] -rotate-12 top-[-5px] bg-red-500 text-white p-[10px] rounded-[5px] font-medium absolute">Recognized</span>
+                <PokeCard data={data} />
+            </div>
+        );
+    };
+};
+
 export default PokemonCard;

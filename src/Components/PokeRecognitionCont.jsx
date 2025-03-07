@@ -1,12 +1,13 @@
 import { ReactTyped } from "react-typed";
 import NotFound from "./NotFound";
-import PokemonCard from "./PokemonCard";
+import PokemonCard, { RecognizedPokeCard } from "./PokemonCard";
 import { Link } from "react-router";
 import { BaseShimmer } from "./Shimmer";
 import usePokeRecognition from "../Utils/hooks/usePokeRecognition";
 
 const PokeRecognitionCont = () => {
     const [summary, suggestions] = usePokeRecognition();
+    const RecognizedCard = RecognizedPokeCard(PokemonCard);
 
     if(!summary)  return null;
     
@@ -28,7 +29,7 @@ const PokeRecognitionCont = () => {
                                 if(el === "error") return <NotFound key={"err"} />;
                                 return (
                                     <Link key={el.id} to={`/pokeInfo/${el.id}`}>
-                                        <PokemonCard data={el} />
+                                        <RecognizedCard data={el} />
                                     </Link>
                                 );
                             })
