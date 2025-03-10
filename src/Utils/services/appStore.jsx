@@ -3,13 +3,15 @@ import pokemonReducer from "./pokemon";
 import pokemonQuizReducer from "./pokemonQuiz";
 import questionReducer from "./questionSlice";
 import recognizeReducer from "./pokemonRecognizer";
+import userInfoReducer from "./userInfoSlice";
 
 const appStore = configureStore({
     reducer: {
         pokemon: pokemonReducer,
         pokemonQuiz: pokemonQuizReducer,
         question: questionReducer,
-        recognize: recognizeReducer
+        recognize: recognizeReducer,
+        userInfo: userInfoReducer
     }
 });
 

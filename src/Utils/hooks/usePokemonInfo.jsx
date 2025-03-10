@@ -1,20 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { fetchPokemonSpecies } from "../helpers";
+import { useNavigate, useParams } from "react-router";
 
 const usePokemonInfo = () => {
     const [pokemonInfo, setPokemonInfo] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
+    const navigate = useNavigate();
 
     const limit = 10;
     const searchRef = useRef("");
-    const pageNumber = useRef(1);
+    const {pageId} = useParams();
 
     const fetchSpecificInfo = (data) => {
         return data.map((el) => fetchPokemonSpecies(el.name));
     };
 
     const fetchPokemonInfo = async () => {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${(pageNumber.current - 1) * limit}`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${(pageId - 1) * limit}`);
         const data = await response.json();
         
         const mainInfo = fetchSpecificInfo(data.results);
@@ -24,31 +26,25 @@ const usePokemonInfo = () => {
     };
 
     const handleNextPage = () => {
-        if((pageNumber.current + 1) <= totalPages) {
-            pageNumber.current++;
-            fetchPokemonInfo();
-        }
+        if((+pageId + 1) <= totalPages) navigate(`/pokemons/${+pageId + 1}`);
     };
     
     const handlePrevPage = () => {
-        if((pageNumber.current - 1) > 0) {
-            pageNumber.current--;
-            fetchPokemonInfo();
-        }
+        if((+pageId - 1) >= 0) navigate(`/pokemons/${+pageId - 1}`);
     };
 
-    const setSearchData = (data) => {
-        setPokemonInfo(data);
+    // const setSearchData = (data) => {
+    //     setPokemonInfo(data);
 
-        pageNumber.current = 1;
-        setTotalPages(1);
-    };
+    //     pageNumber.current = 1;
+    //     setTotalPages(1);
+    // };
 
     useEffect(() => {
         fetchPokemonInfo();
-    }, []);
+    }, [pageId]);
 
-    return {pokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo};
+    return {pokemonInfo, pageId, totalPages, searchRef, fetchPokemonInfo, fetchSpecificInfo, handleNextPage, handlePrevPage};
 }
 
 export default usePokemonInfo;

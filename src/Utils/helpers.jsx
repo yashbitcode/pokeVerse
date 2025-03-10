@@ -1,5 +1,6 @@
 export const fetchPokemonSpecies = async (pokeId) => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokeId}`);
+    
     return response.json();
 };
 

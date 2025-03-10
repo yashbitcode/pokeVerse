@@ -35,3 +35,13 @@ export const MainInfoShimmer = () => {
         </div>
     );
 };
+
+export const LoadingScreen = () => {
+    return (
+        <div className="mt-[2.5rem] w-full h-[500px] mx-auto px-[1rem]">
+            <div className="w-full h-full shimmer-animate rounded-xl">
+
+            </div>
+        </div>
+    );
+};
