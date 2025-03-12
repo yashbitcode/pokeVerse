@@ -3,13 +3,14 @@ import { fetchPokemonSpecies } from "../helpers";
 import { useNavigate, useParams } from "react-router";
 
 const usePokemonInfo = () => {
+    const {pageId} = useParams();
+
     const [pokemonInfo, setPokemonInfo] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
     const navigate = useNavigate();
 
     const limit = 10;
     const searchRef = useRef("");
-    const {pageId} = useParams();
 
     const fetchSpecificInfo = (data) => {
         return data.map((el) => fetchPokemonSpecies(el.name));
@@ -33,15 +34,19 @@ const usePokemonInfo = () => {
         if((+pageId - 1) >= 0) navigate(`/pokemons/${+pageId - 1}`);
     };
 
-    // const setSearchData = (data) => {
-    //     setPokemonInfo(data);
-
-    //     pageNumber.current = 1;
-    //     setTotalPages(1);
-    // };
+    const getSearchData = async () => {
+        Promise.all(fetchSpecificInfo([
+            {
+                name: pageId
+            }
+        ]))
+        .then(setPokemonInfo);
+    };
 
     useEffect(() => {
-        fetchPokemonInfo();
+        if(!/[a-zA-Z]/g.test(pageId)) fetchPokemonInfo();
+        else getSearchData();
+
     }, [pageId]);
 
     return {pokemonInfo, pageId, totalPages, searchRef, fetchPokemonInfo, fetchSpecificInfo, handleNextPage, handlePrevPage};

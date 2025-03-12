@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import logo from "../assets/logo.png";
 import menu from "../assets/menu.svg";
 import cross from "../assets/cross.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import authService from "../appwrite/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { addAccStatus } from "../Utils/services/userInfoSlice";
@@ -53,27 +53,32 @@ const Header = () => {
                             </div>
 
                             <ul className="flex flex-col w-full justify-end gap-[20px] mt-[2rem] px-[20px]">
-                                <li className="text-[1.4rem] font-[400]" onClick={handleSideBar}> 
+                                <li className="text-[1.2rem] font-[400] underline"> 
+                                    {
+                                        `User: ${accStatus.name.toUpperCase()}`
+                                    }
+                                </li>
+                                <li className="text-[1.2rem] font-[400]" onClick={handleSideBar}> 
                                     <Link to={"/pokemons/1"}>
                                         Pokemons
                                     </Link>
                                 </li>
-                                <li className="text-[1.4rem] font-[400]" onClick={handleSideBar}>
+                                <li className="text-[1.2rem] font-[400]" onClick={handleSideBar}>
                                     <Link to={"/pokeGPT"}>
                                         PokeGPT
                                     </Link>
                                 </li>
-                                <li className="text-[1.4rem] font-[400]" onClick={handleSideBar}>
+                                <li className="text-[1.2rem] font-[400]" onClick={handleSideBar}>
                                     <Link to={"/pokeAIQuiz"}>
                                         PokeAIQuiz
                                     </Link>
                                 </li>
-                                <li className="text-[1.4rem] font-[400]" onClick={handleSideBar}>
+                                <li className="text-[1.2rem] font-[400]" onClick={handleSideBar}>
                                     <Link to={"/pokeRecognizer"}>
                                         PokeRecognizer
                                     </Link>
                                 </li>
-                                <li className="text-[1.4rem] font-[400]" onClick={logout}>
+                                <li className="text-[1.2rem] font-[400]" onClick={logout}>
                                     <Link to={"/"}>
                                         Logout
                                     </Link>

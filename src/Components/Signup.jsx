@@ -1,13 +1,16 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import authService from "../appwrite/auth";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addAccStatus } from "../Utils/services/userInfoSlice";
+import { HashLoader } from "react-spinners";
 
 const Signup = ({handler}) => {
     const nameRef = useRef(null);
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
+    const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -15,11 +18,18 @@ const Signup = ({handler}) => {
         try {
 			const acc = await authService.getAccount();
 			dispatch(addAccStatus(acc));
+
+            navigate("/pokemons/1");
 		}
 		catch(err) {}
+        finally {
+            setLoading(false);
+        }
     };
 
     const handleSignup = async () => {
+        setLoading(true);
+
         const name = nameRef.current.value;
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
@@ -27,7 +37,6 @@ const Signup = ({handler}) => {
         await authService.CreateAccount({email, password, name});
         
         getAccStatus();
-        navigate("/pokemons/1");
     };
 
     return (
@@ -52,7 +61,11 @@ const Signup = ({handler}) => {
                 </div>
                 <div className="flex flex-col gap-[15px] mt-[10px]">
                     <span className="text-[1rem] underline cursor-pointer" onClick={() => handler(false)}>Already Have An Acc?</span>
-                    <button className="w-full bg-red-500 py-[8px] rounded-[5px] text-white outline-0 cursor-pointer">Sign Up</button>
+                    <button className="w-full bg-red-500 py-[8px] rounded-[5px] text-white outline-0 cursor-pointer flex justify-center items-center h-[45px]">
+                        {
+                            loading ? <HashLoader color="white" size={25} /> : "Sign Up"
+                        }
+                    </button>
                 </div>
             </form>
         </div>

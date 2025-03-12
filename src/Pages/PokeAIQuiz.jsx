@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { allPokemonsList } from "../Utils/constants";
 import { getFormattedName } from "../Utils/helpers";
 import { HashLoader } from "react-spinners";
 import QuizComp from "../Components/QuizComp";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuizQuestions } from "../Utils/services/pokemonQuiz";
-import { useNavigate } from "react-router";
+import { storage } from "../appwrite/storage.js";
 
 const PokeAIQuiz = () => {
     const [canShow, setCanShow] = useState(false);
@@ -14,18 +14,12 @@ const PokeAIQuiz = () => {
     const [questionsCnt, setQuestionsCnt] = useState(5);
     const [quizName, setQuizName] = useState("");
     const [searchInp, setSearchInp] = useState("");
-    // const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
     const quizDataLS = JSON.parse(localStorage.getItem("quizData"));
     const quizData = useSelector((store) => store.pokemonQuiz.quizQuestions);
-    // const accStatus = useSelector((store) => store.userInfo.accStatus);
     
-    // useEffect(() => {
-    //     console.log(accStatus);
-    //     if(!accStatus) navigate("/");
-    // }, []);
 
     if(quizDataLS && !quizData) dispatch(addQuizQuestions(quizDataLS));
 
@@ -96,6 +90,17 @@ const PokeAIQuiz = () => {
             else fetchQuizQuestions();
         }, 500);
     };
+
+    // const handleDB = async () => {
+    //     const res= await storage.createDocument({id: "212dsuhdushdsdsdd12", quizName: "SAyggy", pokeName: "SAS", totalQues: 10, quesCnt: 1});
+
+    //     console.log(res);
+    // }
+    // const handleD = async () => {
+    //     const res = await storage.getAllDocuments();
+
+    //     console.log(res);
+    // }
 
     const pokeListMemo = useMemo(getPokeList, [searchInp]);
 

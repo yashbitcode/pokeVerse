@@ -7,8 +7,7 @@ import { Link, useNavigate } from "react-router";
 import { BaseShimmer } from "./Shimmer";
 
 const PokemonsCont = () => {
-    // const {pokemonInfo, totalPages, searchRef, pageNumber, handleNextPage, handlePrevPage, setSearchData, fetchPokemonInfo, fetchSpecificInfo} = usePokemonInfo();
-    const {pokemonInfo, pageId, totalPages, searchRef, fetchPokemonInfo, fetchSpecificInfo, handleNextPage, handlePrevPage} = usePokemonInfo();
+    const {pokemonInfo, pageId, totalPages, searchRef, handleNextPage, handlePrevPage} = usePokemonInfo();
 
     const navigate = useNavigate();
 
@@ -17,23 +16,18 @@ const PokemonsCont = () => {
             <div className="w-full text-center">
                 <div>
                     <form className="flex items-center w-full max-w-[550px] max-xsl:max-w-[280px] mx-auto gap-[10px]" onSubmit={(e) => {
-                        // e.preventDefault();
+                        e.preventDefault();
 
-                        // let searchVal = "";
+                        let searchVal = "";
 
-                        // searchRef.current.value.split(" ").forEach((el) => {
-                        //     if(el && !searchVal) searchVal += el.toLowerCase();
-                        //     else if(el) searchVal += `-${el.toLowerCase()}`;
-                        // }); 
+                        searchRef.current.value.split(" ").forEach((el) => {
+                            if(el && !searchVal) searchVal += el.toLowerCase();
+                            else if(el) searchVal += `-${el.toLowerCase()}`;
+                        }); 
 
-                        // searchVal = searchVal.replace(/\./g, "");
+                        searchVal = searchVal.replace(/\./g, "");
                         
-                        // if(searchVal) {                            
-                        //     Promise.all(fetchSpecificInfo([{name: searchVal}]))
-                        //     .then((data) => setSearchData(data))
-                        //     .catch(() => setSearchData(["error"]));
-                        // }
-                        // else fetchPokemonInfo();
+                        navigate("/pokemons/" + searchVal);
                     }}>
                         <input className="text-3xl max-xsl:text-xl pb-[4px] outline-0 border-b-[1.5px] w-full" type="text" ref={searchRef} placeholder="Eg: Pikachu" />
 
@@ -64,7 +58,7 @@ const PokemonsCont = () => {
                             <button className="font-semibold shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] p-[5px] rounded-[5px]" onClick={handlePrevPage}>
                                 <img className="cursor-pointer w-[30px]" src={PREVIOUS} alt="prev-page" />
                             </button>
-                            <span className="rounded-[5px] px-[1rem] py-[10px] text-2xl shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)]">{`${pageId} of ${totalPages}`}</span>
+                            <span className="rounded-[5px] px-[1rem] py-[10px] text-2xl shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)]">{`${(!/[a-zA-Z]/g.test(pageId) && pageId) || 1} of ${totalPages || 1}`}</span>
                             <button className="font-semibold shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] p-[5px] rounded-[5px]" onClick={handleNextPage}>
                                 <img className="cursor-pointer w-[30px]" src={NEXT} alt="next-page" />
                             </button>
