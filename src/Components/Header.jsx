@@ -44,7 +44,7 @@ const Header = () => {
                     <div className={`fixed top-0 h-screen w-screen ${openMenu ? "z-[10]" : "z-[-1]"}`}>
                         {
                             openMenu && (
-                                <div className="absolute z-[-1] w-screen h-[100vh] bg-black opacity-20"></div>
+                                <div className="absolute z-[-1] w-screen h-[100vh] bg-black opacity-30"></div>
                             )
                         }
                         <div className={`transition-all duration-100 h-[100vh] w-full ${!openMenu ? "right-[-100%]" : "right-0"} max-w-[300px] absolute bg-white`}>

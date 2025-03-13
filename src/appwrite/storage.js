@@ -26,13 +26,28 @@ class StorageService {
         }
     }
 
-    async createDocument({id, quizName, pokeName, totalQues, quesCnt}) {
+    async getIdSpecificDocument(quizId) {
+        try {
+            const result = await this.databases.getDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                quizId
+            );
+
+            return result;
+        }
+        catch(err) {
+            return null
+        }
+    }
+
+    async createDocument({id, QuizName, PokemonName, TotalQuestions, QuestionCnt, AllQuizzes}) {
         try {
             const result = await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 id,
-                {QuizName: quizName, PokemonName: pokeName, TotalQuestions: totalQues, QuestionCnt: quesCnt}
+                {QuizName, PokemonName, TotalQuestions, QuestionCnt, AllQuizzes}
             );
 
             return result;
@@ -40,6 +55,34 @@ class StorageService {
         catch(err) {
             return null;
         }
+    }
+
+    async updateQuizEssentials({id, QuestionCnt, AllAnswers, Score}) {
+        try {
+            const result = await this.databases.updateDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                id,
+                {QuestionCnt, Score, AllAnswers}
+            );
+
+            return result;
+        }
+        catch(err) {}
+    }
+
+    async flagQuizCompletion({id}) {
+        try {
+            const result = await this.databases.updateDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                id,
+                {Completed: true}
+            );
+
+            return result;
+        }
+        catch(err) {}
     }
 };
 

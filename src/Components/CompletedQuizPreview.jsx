@@ -1,18 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import QuizOptions from "./QuizOptions";
-import QuizCompleted from "./QuizCompleted";
-import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { storage } from "../appwrite/storage";
 import { addQuizQuestions, resetData } from "../Utils/services/pokemonQuiz";
-import { LoadingScreen } from "./Shimmer";
-import CompletedQuizPreview from "./CompletedQuizPreview";
+import { useEffect } from "react";
+import CompletedQuestions from "./CompletedQuestions";
+import ScoreBoardPreview from "./ScoreBoardPreview";
 import back from "../assets/back.svg";
 
-const QuizComp = () => {
-    const {quizQuestions, currentQ, name, completed} = useSelector((store) => store.pokemonQuiz);
-    const dispatch = useDispatch();
+const CompletedQuizPreview = () => {
+    const name = useSelector((store) => store.pokemonQuiz.name);
+
     const {quizId} = useParams();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const getQuizData = async () => {
@@ -30,29 +29,18 @@ const QuizComp = () => {
         getQuizData();
     }, []);
 
-    if(!quizQuestions) return <LoadingScreen />;
-    else if(completed) return <CompletedQuizPreview />;
-    else if(currentQ === quizQuestions.length) {
-        storage.flagQuizCompletion({id: quizId});
-        return <QuizCompleted />
-    }
-
     return (
         <div className="mt-[2rem] w-full max-w-[800px] mx-auto px-[1rem]">
             <div className="w-[40px] mb-[2rem] mx-auto cursor-pointer" onClick={handleBackNavigation}>
                 <img src={back} alt="back" />
             </div>
             <h1 className="text-2xl mb-[0.5rem]">{name}</h1>
-
             <div className="w-full h-[1.5px] mb-[20px] bg-black"></div>
 
-            <div className="mt-[10px] text-xl max-[500px]:text-[1.1rem]">{`${currentQ + 1}. ${quizQuestions[currentQ].question}`}</div>
-
-            <QuizOptions options={quizQuestions[currentQ].options} answer={quizQuestions[currentQ].answer} />
-
-            <div className="text-[0.9rem] mx-auto w-fit mt-[1rem]">{`${currentQ + 1} of ${quizQuestions.length} Questions`}</div>
+            <CompletedQuestions />
+            <ScoreBoardPreview />
         </div>
-    );
+    )
 };
 
-export default QuizComp;
+export default CompletedQuizPreview;

@@ -6,13 +6,14 @@ import { Outlet } from "react-router";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import appStore from "./Utils/services/appStore";
 import PokeGPT from "./Pages/PokeGPT";
-import PokeAIQuiz from "./Pages/PokeAIQuiz";
 import PokeAIRecognizer from "./Pages/PokeAIRecognizer";
 import Home from "./Pages/Home";
 import authService from "./appwrite/auth";
 import { addAccStatus } from "./Utils/services/userInfoSlice";
 import { useEffect, useState } from "react";
 import { LoadingScreen } from "./Components/Shimmer";
+import PokeQuizBase from "./Pages/PokeQuizBase";
+import QuizComp from "./Components/QuizComp";
 
 const AppLayout = () => {
 	const dispatch = useDispatch();
@@ -78,7 +79,11 @@ const appRoutes = createBrowserRouter([
 			},
 			{
 				path: "/pokeAIQuiz",
-				element: <PokeAIQuiz />
+				element: <PokeQuizBase />
+			},
+			{
+				path: "/quiz/:quizId",
+				element: <QuizComp />
 			},
 			{
 				path: "/pokeRecognizer",

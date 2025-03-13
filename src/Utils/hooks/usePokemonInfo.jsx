@@ -45,7 +45,10 @@ const usePokemonInfo = () => {
 
     useEffect(() => {
         if(!/[a-zA-Z]/g.test(pageId)) fetchPokemonInfo();
-        else getSearchData();
+        else {
+            setTotalPages(1);
+            getSearchData();
+        }
 
     }, [pageId]);
 

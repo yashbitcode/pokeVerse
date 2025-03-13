@@ -1,14 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import { resetData } from "../Utils/services/pokemonQuiz";
+import { useNavigate } from "react-router";
 
 const QuizCompleted = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {currentQ, score} = useSelector((store) => store.pokemonQuiz);
 
     const handleContinue = () => {
-        localStorage.clear();
         dispatch(resetData());
-    }
+        navigate("/pokeAIQuiz");
+    };
 
     return (
         <>

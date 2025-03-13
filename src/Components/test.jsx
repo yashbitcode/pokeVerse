@@ -1,10 +1,10 @@
 import { useMemo, useRef, useState } from "react";
-import { allPokemonsList } from "../Utils/constants";
-import { getFormattedName } from "../Utils/helpers";
+import { allPokemonsList } from "../Utils/constants.jsx";
+import { getFormattedName } from "../Utils/helpers.jsx";
 import { HashLoader } from "react-spinners";
-import QuizComp from "../Components/QuizComp";
+import QuizComp from "./QuizComp.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { addQuizQuestions } from "../Utils/services/pokemonQuiz";
+import { addQuizQuestions } from "../Utils/services/pokemonQuiz.jsx";
 import { storage } from "../appwrite/storage.js";
 
 const PokeAIQuiz = () => {
@@ -19,7 +19,6 @@ const PokeAIQuiz = () => {
 
     const quizDataLS = JSON.parse(localStorage.getItem("quizData"));
     const quizData = useSelector((store) => store.pokemonQuiz.quizQuestions);
-    
 
     if(quizDataLS && !quizData) dispatch(addQuizQuestions(quizDataLS));
 
@@ -91,16 +90,16 @@ const PokeAIQuiz = () => {
         }, 500);
     };
 
-    // const handleDB = async () => {
-    //     const res= await storage.createDocument({id: "212dsuhdushdsdsdd12", quizName: "SAyggy", pokeName: "SAS", totalQues: 10, quesCnt: 1});
+    const handleDB = async () => {
+        const res= await storage.createDocument({id: "wrrdjdd-dhhdsuhdsuh", quizName: "SAyggy", pokeName: "SAS", totalQues: 10, quesCnt: 1});
 
-    //     console.log(res);
-    // }
-    // const handleD = async () => {
-    //     const res = await storage.getAllDocuments();
+        console.log(res.$id);
+    }
+    const handleD = async () => {
+        const res = await storage.getAllDocuments();
 
-    //     console.log(res);
-    // }
+        console.log(res);
+    }
 
     const pokeListMemo = useMemo(getPokeList, [searchInp]);
 
@@ -108,7 +107,7 @@ const PokeAIQuiz = () => {
 
     return (
         <div className="mt-[2rem] w-full max-w-[600px] mx-auto px-[1rem]">
-            <h1 className="text-3xl text-center mb-[1rem]">AI Quiz</h1>
+            <h1 className="text-3xl text-center mb-[1rem]" onClick={handleDB}>AI Quiz</h1>
             <div className="mx-auto max-w-[400px] w-full relative">  
                 <input type="text" className="w-full border-b-[1.5px] text-2xl outline-0 pb-[4px] max-[500px]:text-xl" value={searchInp} placeholder={"Eg: Pikachu"} onChange={(e) => {
                     setSearchInp(e.target.value)
@@ -122,7 +121,7 @@ const PokeAIQuiz = () => {
 
             <div className="mt-[2rem] flex flex-col gap-[17px] w-full items-center">
                 <div className="flex gap-[10px]">
-                    <span className="text-xl max-[500px]:text-[1rem] text-nowrap shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]">Type of Questions: </span>
+                    <span className="text-xl max-[500px]:text-[1rem] text-nowrap shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]" onClick={handleD}>Type of Questions: </span>
                     <span className="text-xl max-[500px]:text-[1rem] text-nowrap shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]">MCQs</span>
                 </div>
                 <div className="flex gap-[10px]">
