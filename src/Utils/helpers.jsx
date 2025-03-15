@@ -40,26 +40,6 @@ export const getTruncatedStr = (str) => {
     return str.substr(0, 30) + "...";
 };
 
-export const getAllQuizPreview = async () => {
-    try {
-        const result = await storage.getAllDocuments();
-        return result.documents;
-    }
-    catch(err) {
-        return [];
-    }
-};
-
-export const getAllRecognizePreview = async () => {
-    try {
-        const result = await storage.getAllRecognizeDocuments();
-        return result.documents;
-    }
-    catch(err) {
-        return [];
-    }
-};
-
 export const getTitleStr = (str) => {
     const strArr = str.split(" ");
     let formattedStr = "";

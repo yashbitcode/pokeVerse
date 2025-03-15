@@ -4,14 +4,38 @@ import completed from "../assets/completed.svg";
 import show from "../assets/show.svg";
 import { LoadingScreen } from "./Shimmer.jsx";
 import NotFound from "./NotFound.jsx";
+import { useSelector } from "react-redux";
+import { storage } from "../appwrite/storage.js";
 
-const AllBasePreview = ({handler, previewType}) => {
+const AllBasePreview = ({previewType}) => {
     const [allPreviews, setAllPreviews] = useState(null);
+    const userId = useSelector((store) => store.userInfo.accStatus?.$id);
 
     const ModifiedPreviewComp = ModifiedPreview(PreviewComp);
 
+    const getAllQuizPreview = async () => {
+        try {
+            const result = await storage.getAllDocuments(userId);
+            return result.documents;
+        }
+        catch(err) {
+            return [];
+        }
+    };
+    
+    const getAllRecognizePreview = async () => {
+        try {
+            const result = await storage.getAllRecognizeDocuments(userId);
+            return result.documents;
+        }
+        catch(err) {
+            return [];
+        }
+    };
+
     const getAllPreviews = async () => {
-        const result = await handler();
+        const result = await ((previewType === "quiz") ? getAllQuizPreview() : getAllRecognizePreview());
+
         setAllPreviews(result);
     };
     

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import addCircle from "../assets/add-circle.svg";
 
-const PokeBase = ({PreviewComp, DetailsComp, previewType, getPreviewData}) => {
+const PokeBase = ({PreviewComp, DetailsComp, previewType}) => {
     const [click, setClick] = useState(false);
 
     return (
@@ -13,7 +13,7 @@ const PokeBase = ({PreviewComp, DetailsComp, previewType, getPreviewData}) => {
                         <img src={addCircle} alt="add" />
                     </div>
                 </div>
-                <PreviewComp handler={getPreviewData} previewType={previewType} />
+                <PreviewComp previewType={previewType} />
             </div>
             {
                 click && <DetailsComp handler={setClick} />

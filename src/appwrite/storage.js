@@ -1,4 +1,4 @@
-import { Client, Databases, Storage } from "appwrite";
+import { Client, Databases, Query, Storage } from "appwrite";
 import conf from "../conf/conf";
 
 class StorageService {
@@ -14,11 +14,14 @@ class StorageService {
         this.storage = new Storage(this.client);
     }
 
-    async getAllDocuments() {
+    async getAllDocuments(userId) {
         try {
             const result = await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteQuizCollectionId,
+                [
+                    Query.equal("UserId", [userId])
+                ]
             );
 
             return result;
@@ -28,11 +31,14 @@ class StorageService {
         }
     }
 
-    async getAllRecognizeDocuments() {
+    async getAllRecognizeDocuments(userId) {
         try {
             const result = await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteRecognizeCollectionId,
+                [
+                    Query.equal("UserId", [userId])
+                ]
             );
 
             return result;
@@ -72,13 +78,13 @@ class StorageService {
         }
     }
 
-    async createDocument({id, QuizName, PokemonName, TotalQuestions, QuestionCnt, AllQuizzes}) {
+    async createDocument({id, UserId, QuizName, PokemonName, TotalQuestions, QuestionCnt, AllQuizzes}) {
         try {
             const result = await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteQuizCollectionId,
                 id,
-                {QuizName, PokemonName, TotalQuestions, QuestionCnt, AllQuizzes}
+                {QuizName, UserId, PokemonName, TotalQuestions, QuestionCnt, AllQuizzes}
             );
 
             return result;
@@ -131,27 +137,13 @@ class StorageService {
         }
     }
 
-    // async getFileView({id}) {
-    //     try {
-    //         const result = await this.storage.getFileView(
-    //             conf.appwriteBucketId,
-    //             id
-    //         );
-
-    //         return result;
-    //     }
-    //     catch(err) {
-    //         return null;
-    //     }
-    // }
-
-    async addRecognizationDetails({id, Name, ImageSummary, RecognizedPokemons, ImageId}) {
+    async addRecognizationDetails({id, UserId, Name, ImageSummary, RecognizedPokemons, ImageId}) {
         try {
             const result = await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteRecognizeCollectionId,
                 id,
-                {Name, ImageSummary, RecognizedPokemons, ImageId}
+                {Name, UserId, ImageSummary, RecognizedPokemons, ImageId}
             );
 
             return result;

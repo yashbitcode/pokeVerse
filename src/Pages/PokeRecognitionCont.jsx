@@ -1,24 +1,32 @@
 import { ReactTyped } from "react-typed";
 import NotFound from "../Components/NotFound";
 import PokemonCard, { RecognizedPokeCard } from "../Components/PokemonCard";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { BaseShimmer, LoadingScreen } from "../Components/Shimmer";
 import usePokeRecognition from "../Utils/hooks/usePokeRecognition";
 import conf from "../conf/conf";
+import back from "../assets/back.svg";
 import { getTitleStr } from "../Utils/helpers";
 
 const PokeRecognitionCont = () => {
     const [recognizedData] = usePokeRecognition();
+    const navigate = useNavigate();
+
     if(!recognizedData) return <LoadingScreen />;
 
     const {recogPokemons, summary, imageId, name} = recognizedData;
 
     const RecognizedCard = RecognizedPokeCard(PokemonCard);
 
+    const handleNavigation = () => navigate("/pokeRecognizer");
+
     if(!summary)  return null;
     
     return (
         <div className="mt-[2rem] px-[1rem]">
+            <div className="w-[40px] mb-[2rem] mx-auto cursor-pointer" onClick={handleNavigation}>
+                <img src={back} alt="back" />
+            </div>
             <div className="w-full max-w-[800px] mx-auto flex flex-col gap-[20px]">
                 <h1 className="text-3xl mb-[0.5rem] underline text-center">{getTitleStr(name)}</h1>
 

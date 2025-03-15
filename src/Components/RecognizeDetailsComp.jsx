@@ -3,6 +3,7 @@ import { HashLoader } from "react-spinners";
 import { storage } from "../appwrite/storage";
 import { ID } from "appwrite";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const RecognizeDetailsComp = ({handler}) => {
     const [selectedImg, setSelectedImg] = useState("");
@@ -10,6 +11,8 @@ const RecognizeDetailsComp = ({handler}) => {
     const [error, setError] = useState(null);
     const [recogName, setRecogName] = useState("");
     const navigate = useNavigate();
+
+    const userId = useSelector((store) => store.userInfo.accStatus.$id);
 
     const handleImage = (e) => setSelectedImg(e.target.files[0]);
 
@@ -29,6 +32,7 @@ const RecognizeDetailsComp = ({handler}) => {
         await storage.createFile({id: fileId, ImageData: selectedImg})
         await storage.addRecognizationDetails({
             id: docId,
+            UserId: userId,
             Name: recogName,
             ImageSummary: mainResponse[0],
             RecognizedPokemons: JSON.stringify(mainResponse[1]),

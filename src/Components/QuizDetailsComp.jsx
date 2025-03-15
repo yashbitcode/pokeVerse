@@ -5,6 +5,7 @@ import { getFormattedName } from "../Utils/helpers";
 import { storage } from "../appwrite/storage";
 import { ID } from "appwrite";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const QuizDetailsComp = ({handler}) => {
     const [canShow, setCanShow] = useState(false);
@@ -13,6 +14,8 @@ const QuizDetailsComp = ({handler}) => {
     const [questionsCnt, setQuestionsCnt] = useState(5);
     const [quizName, setQuizName] = useState("");
     const [searchInp, setSearchInp] = useState("");
+
+    const userId = useSelector((store) => store.userInfo.accStatus?.$id);
 
     const selectedPokemon = useRef(null);
 
@@ -55,6 +58,7 @@ const QuizDetailsComp = ({handler}) => {
         
         await storage.createDocument({
             id: quizId, 
+            UserId: userId,
             QuizName: quizName, 
             PokemonName: selectedPokemon.current, 
             TotalQuestions: +questionsCnt, 

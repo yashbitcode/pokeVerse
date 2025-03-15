@@ -16,7 +16,6 @@ import QuizComp from "./Pages/QuizComp";
 import AllBasePreview from "./Components/AllBasePreview";
 import QuizDetailsComp from "./Components/QuizDetailsComp";
 import RecognizeDetailsComp from "./Components/RecognizeDetailsComp";
-import { getAllQuizPreview, getAllRecognizePreview } from "./Utils/helpers";
 import PokeRecognitionCont from "./Pages/PokeRecognitionCont";
 
 const AppLayout = () => {
@@ -85,11 +84,11 @@ const appRoutes = createBrowserRouter([
 			},
 			{
 				path: "/pokeAIQuiz",
-				element: <PokeBase key={"quiz-preview"} PreviewComp={AllBasePreview} DetailsComp={QuizDetailsComp} previewType={"quiz"} getPreviewData={getAllQuizPreview} />
+				element: <PokeBase key={"quiz-preview"} PreviewComp={AllBasePreview} DetailsComp={QuizDetailsComp} previewType={"quiz"} />
 			},
 			{
 				path: "/pokeRecognizer",
-				element: <PokeBase key={"recog-preview"} PreviewComp={AllBasePreview} DetailsComp={RecognizeDetailsComp} previewType={"recognize"} getPreviewData={getAllRecognizePreview} />
+				element: <PokeBase key={"recog-preview"} PreviewComp={AllBasePreview} DetailsComp={RecognizeDetailsComp} previewType={"recognize"} />
 			},
 			{
 				path: "/recognize/:recogId",
