@@ -1,3 +1,5 @@
+import { storage } from "../appwrite/storage";
+
 export const fetchPokemonSpecies = async (pokeId) => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokeId}`);
     
@@ -36,4 +38,32 @@ export const getFormattedName = (name) => {
 export const getTruncatedStr = (str) => {
     if(str.length < 30) return str;
     return str.substr(0, 30) + "...";
+};
+
+export const getAllQuizPreview = async () => {
+    try {
+        const result = await storage.getAllDocuments();
+        return result.documents;
+    }
+    catch(err) {
+        return [];
+    }
+};
+
+export const getAllRecognizePreview = async () => {
+    try {
+        const result = await storage.getAllRecognizeDocuments();
+        return result.documents;
+    }
+    catch(err) {
+        return [];
+    }
+};
+
+export const getTitleStr = (str) => {
+    const strArr = str.split(" ");
+    return strArr.map((el, idx) => {
+        if(idx !== strArr.length) return el[0].toUpperCase() + el.substr(1) + " ";
+        return el[0].toUpperCase() + el.substr(1);
+    });
 };

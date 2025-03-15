@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import CompletedQuestions from "./CompletedQuestions";
 import ScoreBoardPreview from "./ScoreBoardPreview";
 import back from "../assets/back.svg";
+import { getTitleStr } from "../Utils/helpers";
 
 const CompletedQuizPreview = () => {
     const name = useSelector((store) => store.pokemonQuiz.name);
@@ -34,7 +35,7 @@ const CompletedQuizPreview = () => {
             <div className="w-[40px] mb-[2rem] mx-auto cursor-pointer" onClick={handleBackNavigation}>
                 <img src={back} alt="back" />
             </div>
-            <h1 className="text-2xl mb-[0.5rem]">{name}</h1>
+            <h1 className="text-2xl mb-[0.5rem]">{getTitleStr(name)}</h1>
             <div className="w-full h-[1.5px] mb-[20px] bg-black"></div>
 
             <CompletedQuestions />

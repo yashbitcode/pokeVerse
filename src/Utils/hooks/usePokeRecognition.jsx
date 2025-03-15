@@ -1,12 +1,17 @@
-import { useSelector } from "react-redux";
+import { useParams } from "react-router";
+import { storage } from "../../appwrite/storage";
 import { fetchPokemonSpecies } from "../helpers";
 import { useEffect, useState } from "react";
 
 const usePokeRecognition = () => {
-    const {summary, pokeList} = useSelector((store) => store.recognize);
-    const [suggestions, setSuggestions] = useState(null);
+    const [recognizedData, setRecognizedData] = useState(null);
+
+    const {recogId} = useParams();
 
     const fetchResults = async () => {
+        const res = await storage.getIdSpecificRecogDocument(recogId);
+        const pokeList = JSON.parse(res.RecognizedPokemons);
+
         const dataArr = pokeList.map((el) => {
             let searchVal = "";
 
@@ -20,24 +25,33 @@ const usePokeRecognition = () => {
             return fetchPokemonSpecies(searchVal);
         });
 
+        const finalData = {};
+
         if(dataArr.length) {
             try {
                 const result = await Promise.all(dataArr);
 
-                setSuggestions(result);
+                finalData.recogPokemons = result;
             }
             catch(err) {
-                setSuggestions(["error"]);
+                finalData.recogPokemons = ["error"];
             }
         }
-        else setSuggestions(["error"]);
+        else {
+            finalData.recogPokemons = ["error"];
+        }
+
+        finalData.imageId = res.ImageId;
+        finalData.summary = res.ImageSummary;
+        finalData.name = res.Name;
+        setRecognizedData(finalData);
     };
 
     useEffect(() => {
-        if(pokeList) fetchResults();
-    }, [pokeList]);
+        fetchResults();
+    }, []);
 
-    return [summary, suggestions];
+    return [recognizedData];
 };
 
 export default usePokeRecognition;

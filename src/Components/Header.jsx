@@ -55,7 +55,7 @@ const Header = () => {
                             <ul className="flex flex-col w-full justify-end gap-[20px] mt-[2rem] px-[20px]">
                                 <li className="text-[1.2rem] font-[400] underline"> 
                                     {
-                                        `User: ${accStatus.name.toUpperCase()}`
+                                        `User: ${accStatus.name[0].toUpperCase() + accStatus.name.substr(1)}`
                                     }
                                 </li>
                                 <li className="text-[1.2rem] font-[400]" onClick={handleSideBar}> 

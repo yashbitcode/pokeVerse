@@ -6,14 +6,18 @@ import { Outlet } from "react-router";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import appStore from "./Utils/services/appStore";
 import PokeGPT from "./Pages/PokeGPT";
-import PokeAIRecognizer from "./Pages/PokeAIRecognizer";
 import Home from "./Pages/Home";
 import authService from "./appwrite/auth";
 import { addAccStatus } from "./Utils/services/userInfoSlice";
 import { useEffect, useState } from "react";
 import { LoadingScreen } from "./Components/Shimmer";
-import PokeQuizBase from "./Pages/PokeQuizBase";
+import PokeBase from "./Pages/PokeBase";
 import QuizComp from "./Components/QuizComp";
+import AllBasePreview from "./Components/AllBasePreview";
+import QuizDetailsComp from "./Components/QuizDetailsComp";
+import RecognizeDetailsComp from "./Components/RecognizeDetailsComp";
+import { getAllQuizPreview, getAllRecognizePreview } from "./Utils/helpers";
+import PokeRecognitionCont from "./Components/PokeRecognitionCont";
 
 const AppLayout = () => {
 	const dispatch = useDispatch();
@@ -78,16 +82,20 @@ const appRoutes = createBrowserRouter([
 				element: <PokeGPT />
 			},
 			{
-				path: "/pokeAIQuiz",
-				element: <PokeQuizBase />
-			},
-			{
 				path: "/quiz/:quizId",
 				element: <QuizComp />
 			},
 			{
+				path: "/pokeAIQuiz",
+				element: <PokeBase key={"quiz-preview"} PreviewComp={AllBasePreview} DetailsComp={QuizDetailsComp} previewType={"quiz"} getPreviewData={getAllQuizPreview} />
+			},
+			{
 				path: "/pokeRecognizer",
-				element: <PokeAIRecognizer />
+				element: <PokeBase key={"recog-preview"} PreviewComp={AllBasePreview} DetailsComp={RecognizeDetailsComp} previewType={"recognize"} getPreviewData={getAllRecognizePreview} />
+			},
+			{
+				path: "/recognize/:recogId",
+				element: <PokeRecognitionCont />
 			}
 		]
 	}

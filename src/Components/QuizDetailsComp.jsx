@@ -128,7 +128,6 @@ const QuizDetailsComp = ({handler}) => {
                         <span className="text-xl max-[500px]:text-[1rem] text-nowrap shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] px-[20px] py-[6px] rounded-[5px]">Quiz Name: </span>
 
                         <input className="outline-0 text-xl border-b-[1.5px] w-full max-[500px]:text-[1rem] text-nowrap" type="text" value={quizName} placeholder="Eg: Test Quiz" onChange={(e) => setQuizName(e.target.value)} />
-                            
                     </div>
                     
                     <button className="text-xl max-[500px]:text-[1rem] rounded-[5px] bg-red-500 text-white w-[120px] h-[40px] items-center flex justify-center cursor-pointer" onClick={handleQuiz}> 
