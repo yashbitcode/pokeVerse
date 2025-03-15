@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import QuizOptions from "./QuizOptions";
-import QuizCompleted from "./QuizCompleted";
+import QuizOptions from "../Components/QuizOptions";
+import QuizCompleted from "../Components/QuizCompleted";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { storage } from "../appwrite/storage";
 import { addQuizQuestions, resetData } from "../Utils/services/pokemonQuiz";
-import { LoadingScreen } from "./Shimmer";
-import CompletedQuizPreview from "./CompletedQuizPreview";
+import { LoadingScreen } from "../Components/Shimmer";
+import CompletedQuizPreview from "../Components/CompletedQuizPreview";
 import back from "../assets/back.svg";
 import { getTitleStr } from "../Utils/helpers";
 

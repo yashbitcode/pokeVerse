@@ -62,8 +62,23 @@ export const getAllRecognizePreview = async () => {
 
 export const getTitleStr = (str) => {
     const strArr = str.split(" ");
-    return strArr.map((el, idx) => {
-        if(idx !== strArr.length) return el[0].toUpperCase() + el.substr(1) + " ";
-        return el[0].toUpperCase() + el.substr(1);
+    let formattedStr = "";
+
+    strArr.forEach((el, idx) => {
+        if(idx !== strArr.length) formattedStr += el[0].toUpperCase() + el.substr(1) + " ";
+        else formattedStr += el[0].toUpperCase() + el.substr(1);
     });
+
+    return formattedStr;
+};
+
+export const checkValidation = (name, email, password) => {
+    if(!name) return "Empty Name Field";
+    if(!email) return "Empty Email Field";
+    if(!password) return "Empty Password Field";
+
+    if(!/^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$/.test(password)) return "Password must include a number, a letter, and be 8-30 characters long";
+    if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) return "Invalid Email";
+
+    return null;
 };

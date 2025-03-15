@@ -6,7 +6,7 @@ import { fetchPokemonSpecies } from "../helpers";
 const usePokeAI = () => {
     const searchRef = useRef(null);
     const dispatch = useDispatch();
-    
+
     const pokeAISuggestions = useSelector((store) => store.pokemon.pokeGPTResult);
     const [suggestions, setSuggestions] = useState(null);
     const [searchInp, setSearchInp] = useState(pokeAISuggestions?.searchQuery || "");

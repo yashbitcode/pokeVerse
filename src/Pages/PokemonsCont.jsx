@@ -1,10 +1,10 @@
-import PokemonCard from "./PokemonCard";
+import PokemonCard from "../Components/PokemonCard";
 import NEXT from "../assets/next.svg";
 import PREVIOUS from "../assets/previous.svg";
-import NotFound from "./NotFound";
+import NotFound from "../Components/NotFound";
 import usePokemonInfo from "../Utils/hooks/usePokemonInfo";
 import { Link, useNavigate } from "react-router";
-import { BaseShimmer } from "./Shimmer";
+import { BaseShimmer } from "../Components/Shimmer";
 
 const PokemonsCont = () => {
     const {pokemonInfo, pageId, totalPages, searchRef, handleNextPage, handlePrevPage} = usePokemonInfo();

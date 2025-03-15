@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider, useNavigate } from "react-router";
 import Header from "./Components/Header";
-import PokemonsCont from "./Components/PokemonsCont";
+import PokemonsCont from "./Pages/PokemonsCont";
 import PokemonInfo from "./Pages/PokemonInfo";
 import { Outlet } from "react-router";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -12,12 +12,12 @@ import { addAccStatus } from "./Utils/services/userInfoSlice";
 import { useEffect, useState } from "react";
 import { LoadingScreen } from "./Components/Shimmer";
 import PokeBase from "./Pages/PokeBase";
-import QuizComp from "./Components/QuizComp";
+import QuizComp from "./Pages/QuizComp";
 import AllBasePreview from "./Components/AllBasePreview";
 import QuizDetailsComp from "./Components/QuizDetailsComp";
 import RecognizeDetailsComp from "./Components/RecognizeDetailsComp";
 import { getAllQuizPreview, getAllRecognizePreview } from "./Utils/helpers";
-import PokeRecognitionCont from "./Components/PokeRecognitionCont";
+import PokeRecognitionCont from "./Pages/PokeRecognitionCont";
 
 const AppLayout = () => {
 	const dispatch = useDispatch();
@@ -43,10 +43,8 @@ const AppLayout = () => {
 		else if(!accStatus && !loading) {
 			if(location.pathname !== "/") navigate("/");
 		}
-		else {	
-			getAccStatus();
-		}
-	}, [accStatus, loading]);
+		else getAccStatus();
+	});
 
 	return (
 		<div className="font-[Poppins] w-full pb-[2rem]">

@@ -1,8 +1,8 @@
 import { ReactTyped } from "react-typed";
-import NotFound from "./NotFound";
-import PokemonCard, { RecognizedPokeCard } from "./PokemonCard";
+import NotFound from "../Components/NotFound";
+import PokemonCard, { RecognizedPokeCard } from "../Components/PokemonCard";
 import { Link } from "react-router";
-import { BaseShimmer, LoadingScreen } from "./Shimmer";
+import { BaseShimmer, LoadingScreen } from "../Components/Shimmer";
 import usePokeRecognition from "../Utils/hooks/usePokeRecognition";
 import conf from "../conf/conf";
 import { getTitleStr } from "../Utils/helpers";

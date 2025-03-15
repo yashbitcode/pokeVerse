@@ -4,12 +4,14 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addAccStatus } from "../Utils/services/userInfoSlice";
 import { HashLoader } from "react-spinners";
+import { checkValidation } from "../Utils/helpers";
 
 const Signup = ({handler}) => {
     const nameRef = useRef(null);
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -28,11 +30,20 @@ const Signup = ({handler}) => {
     };
 
     const handleSignup = async () => {
+        setError(null);
         setLoading(true);
 
         const name = nameRef.current.value;
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
+
+        const errorMsg = checkValidation(name, email, password);
+
+        if(errorMsg) {
+            setError(errorMsg);
+            setLoading(false);
+            return;
+        }
 
         await authService.CreateAccount({email, password, name});
         
@@ -42,7 +53,7 @@ const Signup = ({handler}) => {
     return (
         <div className="px-[1rem] mt-[2rem] w-full max-w-[400px] mx-auto">
             <h1 className="text-2xl text-center mb-[1rem]">Sign Up</h1>
-            <form className="flex flex-col w-full gap-[10px] mx-auto px-[20px] py-[2rem] shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] rounded-[10px]" onSubmit={(e) => {
+            <form className="flex flex-col w-full gap-[10px] mx-auto px-[20px] pt-[2rem] pb-[1.5rem] shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] rounded-[10px]" onSubmit={(e) => {
                 e.preventDefault();
 
                 handleSignup();
@@ -67,6 +78,12 @@ const Signup = ({handler}) => {
                         }
                     </button>
                 </div>
+
+                {
+                    error && (
+                        <span className="text-[12px] w-fit mx-auto bg-red-500 text-white py-[6px] mt-[8px] px-[12px] rounded-[5px]">Error: {error}</span>
+                    )
+                }
             </form>
         </div>
     );
